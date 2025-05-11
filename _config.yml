@@ -1,7 +1,8 @@
 title: "FreeTools4U"
 email: swipetoconnect@gmail.com
 timezone: UTC
-baseurl: "https://www.freetools4u.site"
+baseurl: ""
+url: "https://freetools4u.site"
 permalink: "/:title/"
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
