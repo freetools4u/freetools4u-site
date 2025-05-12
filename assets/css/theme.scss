@@ -82,6 +82,7 @@ small, .small {
 .big {
     font-size:1.4em;
 }
+
 /* #Navigation
 ================================================== */
 
@@ -89,30 +90,49 @@ small, .small {
 	opacity: 1;
 	transform: translateY(0);
 	padding: 10px 0;	
-	-webkit-transition : all 0.3s ease-out;
-	transition : all 0.3s ease-out;
-   
+	-webkit-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
 }
+
 .start-header.scroll-on {	
 	padding: 5px 0;
-	-webkit-transition : all 0.3s ease-out;
-	transition : all 0.3s ease-out;
+	-webkit-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
     box-shadow: 0px 10px 40px 0px rgba(0,0,0,0.05);
 }
+
 .start-header.scroll-on .navbar-brand img {	
-	-webkit-transition : all 0.3s ease-out;
-	transition : all 0.3s ease-out;
+	-webkit-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
 }
+
 .navigation-wrap {	
 	width: 100%;
 	top: 0;
 	left: 0;
 	z-index: 9999;
-	-webkit-transition : all 0.3s ease-out;
-	transition : all 0.3s ease-out;
-    position:fixed;
-    background:#fff;
+	-webkit-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+    position: fixed;
+    background: #fff;
 }
+
+/* Mobile Adjustments for Header */
+@media (max-width: 768px) {
+	.start-header {
+		padding: 5px 0; /* Reduced padding on mobile */
+	}
+	
+	.start-header.scroll-on {
+		padding: 3px 0; /* Further reduced padding when scrolled */
+	}
+	
+	.navigation-wrap {
+		top: 0; /* Ensure fixed position remains the same */
+	}
+}
+
+/* Social Icon Styling */
 .social-icon {
     display: inline-block !important;
     width: 20px;
@@ -123,13 +143,15 @@ small, .small {
 /* Sidebar
 ================================================== */
 .sidebar.sticky-top {
-    top:96px;
-    .dropdown-item {
-        opacity:.6;
-    }
-    .dropdown-item.blog {
-        display:none
-    }
+    top: 86px; /* Adjusted to align with reduced header height */
+}
+
+.sidebar.sticky-top .dropdown-item {
+    opacity: .6;
+}
+
+.sidebar.sticky-top .dropdown-item.blog {
+    display: none;
 }
 
 /* Pages
