@@ -119,22 +119,6 @@
         </div>
     </section>
 
-    <script>
-    document.getElementById("shareNowBtn").addEventListener("click", function () {
-        if (navigator.share) {
-            navigator.share({
-                title: 'Text to Emoji Converter Tool',
-                text: 'Try this fun free Text to Emoji Converter! 🎉 Convert your text into emojis instantly.',
-                url: window.location.href
-            })
-            .then(() => console.log('Thanks for sharing!'))
-            .catch((error) => console.log('Sharing failed', error));
-        } else {
-            alert("Sharing is not supported in your browser. Please copy the link manually.");
-        }
-    });
-</script>
-
     <footer>
         <p>&copy; 2025 FreeTools4U.site | All rights reserved. | Built with ❤️ to make the web more expressive, one emoji at a time.</p>
     </footer>
