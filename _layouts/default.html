@@ -15,17 +15,29 @@
 <link href="{{ site.baseurl }}/assets/css/custom.css" rel="stylesheet">
 <!-- custom CSS end-->
     
-{% if jekyll.environment == "production" %}       
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{site.ganalytics}}"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '{{site.ganalytics}}');
-</script>
-{% endif %}
+<!-- ✅ Basic Meta Tags for SEO -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="FreeTools4U offers unlimited access to powerful free tools for SEO, content, development, and more.">
+<meta name="keywords" content="free tools, SEO tools, online tools, FreeTools4U, web tools, development tools">
+<meta name="author" content="FreeTools4U">
 
+<!-- ✅ Open Graph Tags (for social sharing) -->
+<meta property="og:title" content="FreeTools4U - Free Unlimited Tools Online">
+<meta property="og:description" content="Get instant access to top online tools for SEO, writing, coding and more – 100% free, forever!">
+<meta property="og:image" content="https://freetools4u.site/assets/images/logo.png">
+<meta property="og:url" content="https://freetools4u.site">
+<meta property="og:type" content="website">
+
+<!-- ✅ Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FreeTools4U - Free Unlimited Tools Online">
+<meta name="twitter:description" content="Instant access to free SEO, dev, writing tools & more. No sign up. No limits.">
+<meta name="twitter:image" content="https://freetools4u.site/assets/images/logo.png">
+
+<!-- ✅ Favicon -->
+<link rel="icon" type="image/png" href="{{ '/assets/images/favicon.ico' | relative_url }}">
+    
 <meta name="google-site-verification" content="ckiDXLEZOGWZoSS4pR9tzFcyE6mPt9Ws7xFZ-iV9sTw" />
 
 <!-- Google tag (gtag.js) -->
@@ -36,6 +48,29 @@ gtag('config', '{{site.ganalytics}}');
   gtag('js', new Date());
 
   gtag('config', 'G-6PWM9RV7GF');
+</script>
+
+<!-- Structured Data Rich Snippet for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "FreeTools4U",
+  "url": "https://freetools4u.site",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://freetools4u.site/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "FreeTools4U",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://freetools4u.site/assets/images/logo.png"
+    }
+  }
+}
 </script>
     
 </head>   
