@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const emojiMap = {
     happy: "😊",
     sad: "😢",
+    laughter: "😂",
+    birthday: "🎂",
+    cake: "🍰",
+    dear: "❤️",
     love: "❤️",
     laugh: "😂",
     angry: "😠",
