@@ -1,6 +1,6 @@
 # 🚀 **Welcome to FreeTools4U**
 
-![FreeTools4U Logo](https://via.placeholder.com/150)  
+![FreeTools4U Logo](https://freetools4u.site/assets/images/logo.png)   
 
 Welcome to **FreeTools4U**, the ultimate destination where you can find a variety of **free, unlimited-use tools** to make your life easier! Whether you're looking for productivity boosters, development tools, or utilities to streamline your work, we've got it all covered—without any hidden charges or limitations.
 
