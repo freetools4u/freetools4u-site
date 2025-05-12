@@ -9,7 +9,7 @@ baseurl: ""
 permalink: "/:title/"
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
-author: Sal
+author: Saif
 paginate: 30
 disqus: 'demowebsite'
 feed_items: 10
@@ -26,10 +26,10 @@ ganalytics: UA-113961478-1
 
 # Authors
 authors:
-  sal:
+  saif:
     name: Saif
     display_name: Saif
-    avatar: 'assets/images/sal.png'
+    avatar: 'assets/images/saif.png'
     email: talktoaamirsaif@gmail.com
     web: https://www.freetools4u.site/
     twitter: #
