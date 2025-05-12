@@ -16,7 +16,7 @@
 
     <header>
         <h1>Text to Emoji Converter Tool</h1>
-        <p>Welcome to the ultimate <strong>Text to Emoji Converter Tool</strong> — your go-to solution for turning boring text into fun, expressive emoji-rich content. Whether you're chatting with friends, posting on social media, or writing creative content, our tool adds life, color, and personality to your words.</p>
+        <p>Convert words to emojis Online instantly using this free emoji to text generator/converter tool. Make your messages fun, expressive, and creative with just one click!</p>
     </header>
 
     <section class="intro-seo">
@@ -119,11 +119,21 @@
         </div>
     </section>
 
-    <section class="cta">
-        <h2>Share the Fun with Your Friends!</h2>
-        <p>Enjoyed using our Text to Emoji Converter? Let others join the fun too! Share this tool with your friends, family, or followers on WhatsApp, Telegram, Facebook, or Twitter. The more, the merrier. Use the <strong>Share Now</strong> button below to spread the joy and creativity. Emojis make everything better — let’s brighten up the internet together!</p>
-        <button id="shareNowBtn">Share Now</button>
-    </section>
+    <script>
+    document.getElementById("shareNowBtn").addEventListener("click", function () {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Text to Emoji Converter Tool',
+                text: 'Try this fun free Text to Emoji Converter! 🎉 Convert your text into emojis instantly.',
+                url: window.location.href
+            })
+            .then(() => console.log('Thanks for sharing!'))
+            .catch((error) => console.log('Sharing failed', error));
+        } else {
+            alert("Sharing is not supported in your browser. Please copy the link manually.");
+        }
+    });
+</script>
 
     <footer>
         <p>&copy; 2025 FreeTools4U.site | All rights reserved. | Built with ❤️ to make the web more expressive, one emoji at a time.</p>
