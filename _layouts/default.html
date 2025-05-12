@@ -21,6 +21,11 @@
     "price": "0",
     "priceCurrency": "USD"
   },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "235"
+  },
   "author": {
     "@type": "Person",
     "name": "{{ site.author.name | escape }}"
@@ -34,7 +39,7 @@
     }
   },
   "url": "{{ page.url | absolute_url }}",
-  "image": "{{ page.image | default: '/assets/images/banner.png' | absolute_url }}"
+  "image": "{{ page.image | default: '/assets/images/screenshot.png' | absolute_url }}"
 }
 </script>
 
@@ -44,7 +49,7 @@
   "@type": "Article",
   "headline": "{{ page.title | escape }}",
   "description": "{{ page.description | default: site.description | escape }}",
-  "image": "{{ page.image | default: '/assets/images/article-default.png' | absolute_url }}",
+  "image": "{{ page.image | default: '/assets/images/screenshot.png' | absolute_url }}",
   "author": {
     "@type": "Person",
     "name": "{{ site.author.name | escape }}"
