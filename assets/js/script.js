@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const emojiMap = {
     happy: "😊",
-    smile: "🙂",
     sad: "😢",
     love: "❤️",
     laugh: "😂",
@@ -20,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
     pig: "🐷",
     monkey: "🐵",
     rabbit: "🐰",
-    bunny: "🐰",
     bear: "🐻",
     panda: "🐼",
     koala: "🐨",
@@ -46,8 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
     fire: "🔥",
     heart: "❤️",
     clap: "👏",
-    thumbs up: "👍",
-    thumbs down: "👎",
     ok: "👌",
     yes: "✅",
     no: "❌",
@@ -56,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
     money: "💰",
     gift: "🎁",
     ball: "⚽",
-    football: "⚽",
     volleyball: "🏀",
     handball: "🏈",
     car: "🚗",
@@ -134,10 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
     right: "➡️",
     sparkle: "✨",
     bomb: "💣",
-    poop: "💩",
-    sleepy: "😴",
-    smile: "🙂"
-    };
+    poop: "💩"
+};
 
     function convertTextToEmoji(text) {
         return text.split(' ').map(word => {
