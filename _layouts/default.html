@@ -12,10 +12,10 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "{{ page.title }}",
+  "name": "{{ page.title | escape }}",
   "operatingSystem": "All",
   "applicationCategory": "WebApplication",
-  "description": "{{ page.description | default: site.description }}",
+  "description": "{{ page.description | default: site.description | escape }}",
   "browserRequirements": "Requires JavaScript enabled",
   "offers": {
     "@type": "Offer",
@@ -24,7 +24,7 @@
   },
   "author": {
     "@type": "Person",
-    "name": "{{ site.author.name }}"
+    "name": "{{ site.author.name | escape }}"
   },
   "publisher": {
     "@type": "Organization",
@@ -35,7 +35,7 @@
     }
   },
   "url": "{{ page.url | absolute_url }}",
-  "image": "{{ page.image | default: '/assets/images/screenshot.png' | absolute_url }}"
+  "image": "{{ page.image | default: '/assets/images/banner.png' | absolute_url }}"
 }
 </script>
 
