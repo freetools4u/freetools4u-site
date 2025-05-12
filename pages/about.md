@@ -49,7 +49,7 @@ We’re a dedicated group of individuals committed to providing **top-notch tool
 
 We value your feedback and are always looking to improve. If you have any questions, suggestions, or just want to say hello, feel free to contact us!
 
-[Contact Us](#contact)
+[Contact Us](https://freetools4u.site/contact/)
 
 ---
 
