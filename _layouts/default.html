@@ -31,6 +31,63 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "{{ page.title }}",
+  "operatingSystem": "All",
+  "applicationCategory": "WebApplication",
+  "description": "{{ page.description | default: site.description }}",
+  "browserRequirements": "Requires JavaScript enabled",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.author.name }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Tools 4U",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ '/assets/images/logo.png' | absolute_url }}"
+    }
+  },
+  "url": "{{ page.url | absolute_url }}",
+  "image": "{{ page.image | default: '/assets/images/screenshot.png' | absolute_url }}"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ page.title }}",
+  "description": "{{ page.description | default: site.description }}",
+  "image": "{{ page.image | default: '/assets/images/article-default.png' | absolute_url }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.author.name }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Tools 4U",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ '/assets/images/logo.png' | absolute_url }}"
+    }
+  },
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.date | date_to_xmlschema }}",
+  "mainEntityOfPage": "{{ page.url | absolute_url }}",
+  "url": "{{ page.url | absolute_url }}"
+}
+</script>
+  
 <link href="{{ site.baseurl }}/assets/css/theme.css" rel="stylesheet">
 
 <!-- custom CSS - Remove this if you don't use it or choose to customize the stylesheet with sass-->
