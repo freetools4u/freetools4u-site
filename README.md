@@ -89,9 +89,9 @@ At **FreeTools4U**, we are committed to offering **reliable, high-quality, and f
 
 We’d love to hear your feedback and suggestions! Stay connected with us via:
 
-- [Twitter](https://twitter.com/freetools4u)
-- [LinkedIn](https://www.linkedin.com/in/freetools4u)
-- [Email](mailto:support@freetools4u.site)
+- [Twitter](#)
+- [LinkedIn](#)
+- [Email](#)
 
 Join our community and help us grow!
 
