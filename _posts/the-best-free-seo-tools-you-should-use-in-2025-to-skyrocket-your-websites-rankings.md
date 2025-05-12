@@ -1,9 +1,7 @@
 ---
 layout: post
 title: "The Best Free SEO Tools You Should Use in 2025 to Skyrocket Your Website’s Rankings"
-date: 2025-05-12
 categories: seo tools, free tools, seo strategies, blogging
-tags: [SEO, free tools, google analytics, seo strategy, blogging]
 image: /assets/images/seo-tools.webp
 ---
 
