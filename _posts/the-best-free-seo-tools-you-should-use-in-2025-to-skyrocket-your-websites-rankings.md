@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "The Best Free SEO Tools You Should Use in 2025 to Skyrocket Your Website’s Rankings"
-categories: seo tools, free tools, seo strategies, blogging
-image: /assets/images/seo-tools.webp
+title:  Tthe best free SEO tools you should use in 2025 to skyrocket your websites rankings"
+author: Saif
+categories: [ Blogging, SEO, SEO Tools ]
+image: assets/images/seo-tools.webp
 ---
 
 # **The Best Free SEO Tools You Should Use in 2025 to Skyrocket Your Website’s Rankings**
