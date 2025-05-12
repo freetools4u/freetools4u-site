@@ -2,7 +2,6 @@
 layout: page
 title: About
 permalink: "/about/"
-image: assets/images/logo.png
 ---
 
 # Welcome to **FreeTools4U**!
