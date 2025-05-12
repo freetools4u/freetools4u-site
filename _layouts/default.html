@@ -50,27 +50,26 @@
   gtag('config', 'G-6PWM9RV7GF');
 </script>
 
-<!-- Structured Data Rich Snippet for SEO -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "FreeTools4U",
-  "url": "https://freetools4u.site",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://freetools4u.site/search?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "FreeTools4U",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://freetools4u.site/assets/images/logo.png"
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{{ page.title }}",
+    "image": "{{ page.image | absolute_url }}",
+    "description": "{{ page.description }}",
+    "url": "{{ page.url | absolute_url }}",
+    "brand": {
+      "@type": "Brand",
+      "name": "FreeTools4U"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "{{ page.url | absolute_url }}",
+      "priceCurrency": "USD",
+      "price": "0.00",  // Adjust if tools are paid or free
+      "eligibleRegion": "US"
     }
   }
-}
 </script>
     
 </head>   
