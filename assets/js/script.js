@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const convertBtn = document.getElementById('convertBtn');
     const copyBtn = document.getElementById('copyBtn');
 
-    const emoji_map = {
+    const emojiMap = {
     "happy": ["😊", "😄", "😁", "😃"],
     "sad": ["😢", "😞", "😭", "🙁"],
     "love": ["❤️", "😍", "😘", "💕"],
