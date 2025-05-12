@@ -74,7 +74,7 @@
     </div>
     <div></div>
     <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:25px; border-width:1px; border-color:#02070d; border-style:solid; direction:ltr">
-      <form id="sib-form" method="POST" action="https://sibforms.com/serve/MUIFAI7asI1y2nEIYz1BZikroq3xVeC9AivxH78bfxhv4t-mqoeWQ-N-yMJITxs29UdgBqT9vRmLMv61FGLc9lLRo73lgtfnupSL4kcGimReb9LrkHG5dpY92tMJ2fKxzIcFBSVh5rMjpeQ6KfTHO5F3ZVge9elMObBws4q5F2VTqgeotbMoNPbcSietKxj9W5JbPAw0IEsDjeJX" data-type="subscription">
+      <form id="sib-form" method="POST" action="https://sibforms.com/serve/MUIFAEbCt1dKadAKjpcQ4k-BrMUeRB41-Yo_4npXV8RSFO6RVeCsY6FuYcRuiVargxc2Wskdw-b4oiqr6DVsMgtZ3ThNBuMd8JsnYeiRhsqNDlxsuM4mnRgggxdo938Z5_NJdp7oRJdnt6TdPD-hZlsAI6MLDiWesG-LiIZ_MTBhXdTWU9-jN1wnBWWWCL-eY8OHj3-K1Bg3rT-Y" data-type="subscription">
         <div style="padding: 8px 0;">
           <div class="sib-form-block" style="font-size:32px; text-align:center; font-weight:700; font-family:Helvetica, sans-serif; color:#00050b; background-color:transparent; text-align:center">
             <p>Newsletter</p>
@@ -96,10 +96,25 @@
           <div class="sib-input sib-form-block">
             <div class="form__entry entry_block">
               <div class="form__label-row ">
-                <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; text-align:left; font-weight:700; font-family:Helvetica, sans-serif; color:#000408;" for="EMAIL" data-required="*">Enter your EMAIL</label>
+                <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; text-align:left; font-weight:700; font-family:Helvetica, sans-serif; color:#000408;" for="FIRSTNAME" data-required="*">Enter your Name &amp; Email</label>
 
                 <div class="entry__field">
-                  <input class="input " type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required />
+                  <input class="input " maxlength="200" type="text" id="FIRSTNAME" name="FIRSTNAME" autocomplete="off" placeholder="Full Name" data-required="true" required />
+                </div>
+              </div>
+
+              <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;">
+              </label>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 8px 0;">
+          <div class="sib-input sib-form-block">
+            <div class="form__entry entry_block">
+              <div class="form__label-row ">
+
+                <div class="entry__field">
+                  <input class="input " type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="Enter your email here" data-required="true" required />
                 </div>
               </div>
 
