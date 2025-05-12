@@ -1,11 +1,11 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () { 
     const input = document.getElementById('inputText');
     const output = document.getElementById('outputText');
     const convertBtn = document.getElementById('convertBtn');
     const copyBtn = document.getElementById('copyBtn');
 
     const emojiMap = {
-    "happy": ["😊", "😄", "😁", "😃"],
+        "happy": ["😊", "😄", "😁", "😃"],
     "sad": ["😢", "😞", "😭", "🙁"],
     "love": ["❤️", "😍", "😘", "💕"],
     "laugh": ["😂", "🤣", "😆", "😹"],
@@ -119,11 +119,25 @@ document.addEventListener('DOMContentLoaded', function () {
     "smile": ["🙂", "😊"],
     };
 
+    // Handle multi-word phrases first
     function convertTextToEmoji(text) {
-        return text.split(' ').map(word => {
-            const cleanWord = word.toLowerCase().replace(/[^a-z]/g, '');
-            return emojiMap[cleanWord] || word;
-        }).join(' ');
+        let processedText = text.toLowerCase();
+
+        // Replace phrases first
+        Object.keys(emojiMap).forEach(keyword => {
+            const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+            if (processedText.includes(keyword)) {
+                processedText = processedText.replace(regex, emojiMap[keyword].join(' '));
+            }
+        });
+
+        // Split remaining words and handle unmatched
+        const finalWords = processedText.split(' ').map(word => {
+            const cleanWord = word.replace(/[^a-z]/gi, '');
+            return emojiMap[cleanWord]?.join(' ') || word;
+        });
+
+        return finalWords.join(' ');
     }
 
     convertBtn.addEventListener('click', function () {
