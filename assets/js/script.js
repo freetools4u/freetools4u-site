@@ -1,45 +1,43 @@
-// Emoji mapping for basic text-to-emoji conversion
-const emojiMap = {
-    "happy": "😊",
-    "sad": "😞",
-    "love": "❤️",
-    "heart": "💖",
-    "star": "⭐",
-    "fire": "🔥",
-    "clap": "👏",
-    "laugh": "😂",
-    "cool": "😎",
-    "thumb": "👍",
-    "wink": "😉",
-    "coffee": "☕",
-    "sun": "🌞",
-    "moon": "🌙",
-    "earth": "🌍"
-};
+document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('inputText');
+    const output = document.getElementById('outputText');
+    const convertBtn = document.getElementById('convertBtn');
+    const copyBtn = document.getElementById('copyBtn');
 
-// Function to convert text to emojis
-function convertTextToEmojis() {
-    const inputText = document.getElementById('inputText').value;
-    let convertedText = inputText;
+    const emojiMap = {
+        hello: "👋",
+        love: "❤️",
+        happy: "😊",
+        sad: "😢",
+        fire: "🔥",
+        cool: "😎",
+        smile: "😄",
+        star: "⭐",
+        heart: "💖",
+        like: "👍",
+        angry: "😡",
+        laugh: "😂",
+        cry: "😭",
+        wow: "😲",
+        party: "🎉"
+    };
 
-    // Loop through emoji map and replace the text with corresponding emoji
-    for (const [word, emoji] of Object.entries(emojiMap)) {
-        const regex = new RegExp(`\\b${word}\\b`, 'gi');
-        convertedText = convertedText.replace(regex, emoji);
+    function convertTextToEmoji(text) {
+        return text.split(' ').map(word => {
+            const cleanWord = word.toLowerCase().replace(/[^a-z]/g, '');
+            return emojiMap[cleanWord] || word;
+        }).join(' ');
     }
 
-    // Update output text area with converted emojis
-    document.getElementById('outputText').value = convertedText;
-}
+    convertBtn.addEventListener('click', function () {
+        const userInput = input.value;
+        const emojiText = convertTextToEmoji(userInput);
+        output.value = emojiText;
+    });
 
-// Function to copy the converted emojis to clipboard
-function copyToClipboard() {
-    const outputText = document.getElementById('outputText');
-    outputText.select();
-    document.execCommand('copy');
-    alert('Converted emojis copied to clipboard!');
-}
-
-// Event listeners for the buttons
-document.getElementById('convertBtn').addEventListener('click', convertTextToEmojis);
-document.getElementById('copyBtn').addEventListener('click', copyToClipboard);
+    copyBtn.addEventListener('click', function () {
+        output.select();
+        document.execCommand('copy');
+        alert('Copied to clipboard!');
+    });
+});
