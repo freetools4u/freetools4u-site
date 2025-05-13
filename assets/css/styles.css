@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    background-color: #4CAF50;
+    background-color: #183418;
     color: white;
     padding: 20px;
     text-align: center;
@@ -29,7 +29,7 @@ h2 {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #183418;
     color: white;
     border: none;
     cursor: pointer;
@@ -38,7 +38,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #183418;
 }
 
 section {
@@ -59,7 +59,7 @@ section {
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #4CAF50;
+    background-color: #183418;
     color: white;
     margin-top: 20px;
 }
