@@ -52,6 +52,6 @@ We value your feedback and are always looking to improve. If you have any questi
 
 ---
 
-**This site is powered by the** [**Affiliates Jekyll Theme**](https://bootstrapstarter.com/jekyll-theme-memoirs/). Hosted on Github Pages.
+**This site is powered by the** [**Affiliates Jekyll Theme**](https://freetools4u.site).
 
 ---
