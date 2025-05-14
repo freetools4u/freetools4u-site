@@ -1,15 +1,3 @@
-# Allow all search engines to crawl everything except private and admin pages
 User-agent: *
-Disallow: /private/
-Disallow: /admin/
-Disallow: /checkout/
-Disallow: /cart/
-Disallow: /user-account/
-Disallow: /*?u_src=*
-Disallow: /cdn-cgi/*
-
-# Allow all pages to be indexed except the ones we specifically block
 Allow: /
-
-# Sitemap location (important for better crawling and SEO)
-Sitemap: https://www.freetools4u.site/sitemap.xml
+Sitemap: https://freetools4u.site/sitemap.xml
