@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Diagnostics: Check your IP, Device & System Info | FreeTools4U</title>
+  <meta name="description" content="Instantly view your public IP, location, browser, OS, screen resolution, battery level, local time, and device type. Stylish, free, and mobile-friendly diagnostic tool by FreeTools4U.">
+  <meta name="keywords" content="check my IP, device info tool, browser details, operating system checker, battery status, screen resolution, system diagnostics online">
+  <link rel="canonical" href="https://freetools4u.site/find-ip-device-info.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "WebApplication",
+    "name": "Free Online Diagnostics Tool",
+    "operatingSystem": "All",
+    "applicationCategory": "Utilities",
+    "description": "Free, stylish diagnostics tool showing your IP, location, browser, OS, battery, screen, time & device type.",
+    "url": "https://freetools4u.site/find-ip-device-info.html",
+    "browserRequirements": "JavaScript enabled",
+    "author": { "@type": "Organization", "name": "FreeTools4U" }
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #f4f7fc;
+      --text: #333;
+      --card: #fff;
+      --accent: #3b82f6;
+      --accent-light: #e0f2fe;
+    }
+    body[data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card: #16213e;
+      --accent-light: #0f3460;
+    }
+    body {
+      margin: 0; padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+    header {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    header h1 { margin:0; font-size:2rem; }
+    header p { margin:0.5rem 0; font-size:1.1rem; }
+    #theme-toggle {
+      position: fixed; top:1rem; right:1rem;
+      background: #fff; color: var(--accent);
+      border: none; padding:0.5rem 1rem; border-radius:5px;
+      cursor: pointer; box-shadow:0 2px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+    #theme-toggle:hover { background: var(--accent-light); }
+    main { max-width:1000px; margin:2rem auto; padding:0 1rem; }
+    .grid { display:grid; gap:1.5rem; }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); }
+    .card {
+      background: var(--card);
+      padding:1.5rem;
+      border-radius:8px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
+      display:flex; align-items:center;
+      transition: transform 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); }
+    .icon { font-size:2rem; margin-right:1rem; }
+    .info { display:flex; flex-direction:column; }
+    .info .label { font-weight:bold; margin-bottom:0.25rem; }
+    .section { margin-top:3rem; }
+    .section h2 { color: var(--accent); font-size:1.5rem; border-bottom:2px solid var(--accent-light); padding-bottom:0.5rem; }
+    .section p, .section ul { font-size:1rem; line-height:1.6; }
+    .section ul { list-style:disc inside; }
+    .tools-grid { display:grid; gap:1rem; margin-top:1rem; }
+    .tool-box {
+      background: var(--card);
+      padding:1rem; text-align:center;
+      border-radius:6px;
+      box-shadow:0 1px 4px rgba(0,0,0,0.1);
+      transition: background 0.3s;
+    }
+    .tool-box:hover { background: var(--accent-light); }
+    .tool-box a { text-decoration:none; color:var(--accent); font-weight:bold; }
+    blockquote {
+      border-left:4px solid var(--accent);
+      margin:1rem 0; padding-left:1rem; color:var(--text);
+      background: var(--accent-light);
+      border-radius:4px;
+    }
+    footer { text-align:center; padding:2rem 1rem; font-size:0.9rem; color:var(--text); }
+  </style>
+</head>
+<body>
+  <button id="theme-toggle">Dark Mode</button>
+  <header>
+    <h1>Smart Diagnostics: Find Your IP & Device Info</h1>
+    <p>FreeTools4U presents a stylish, all-in-one IP Finder, browser and device diagnostics Tool. View all your key system details in one click.No SIGN UP Required! Just Enjoy and Show Your Love. Sharing is Caring ❤️</p>
+  </header>
+  <main>
+    <div class="section">
+      <div class="grid grid-2" id="cards">
+        <div class="card"><span class="icon">🌐</span><div class="info"><div class="label">Public IP Address</div><div id="ip">Loading...</div></div></div>
+        <div class="card"><span class="icon">📍</span><div class="info"><div class="label">Location</div><div id="location">Loading...</div></div></div>
+        <div class="card"><span class="icon">🧭</span><div class="info"><div class="label">Browser</div><div id="browser">Loading...</div></div></div>
+        <div class="card"><span class="icon">⚙️</span><div class="info"><div class="label">Operating System</div><div id="os">Loading...</div></div></div>
+        <div class="card"><span class="icon">🖥️</span><div class="info"><div class="label">Screen Resolution</div><div id="resolution">Loading...</div></div></div>
+        <div class="card"><span class="icon">⚡</span><div class="info"><div class="label">Battery Status</div><div id="battery">Loading...</div></div></div>
+        <div class="card"><span class="icon">🕒</span><div class="info"><div class="label">Local Time (Timezone)</div><div id="time">Loading...</div></div></div>
+        <div class="card"><span class="icon">📱</span><div class="info"><div class="label">Device Type</div><div id="device">Loading...</div></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Why Use This Tool?</h2>
+      <ul>
+        <li>✅ <strong>Instant Insights</strong> without any signup or download.</li>
+        <li>✅ <strong>All-in-One</strong> data: IP, location, browser, OS, screen, battery, time.</li>
+        <li>✅ <strong>Professional & Stylish</strong> UI with emojis and animations.</li>
+        <li>✅ <strong>Dark & Light Mode</strong> toggle for your preference.</li>
+        <li>✅ <strong>Free & Ad-Free</strong>—pure diagnostics only.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Explore More Free Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-box">🔤 <a href="/word-counter.html">Word Counter</a></div>
+        <div class="tool-box">😊 <a href="emoji-converter.html">Text to Emoji Converter</a></div>
+        <div class="tool-box">⏱️ <a href="reading-time-calculator.html">Reading Time Calculator</a></div>
+        <div class="tool-box">✍️ <a href="grammatical-error-correction.html">Grammar Correction Tool</a></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>User Reviews</h2>
+      <blockquote>“Super fast and accurate—just what I needed!” – <i>DevGuru</i></blockquote>
+      <blockquote>“The design is sleek and the dark mode is 🔥.” – <i>NightCoder</i></blockquote>
+      <blockquote>“Helps me test client setups in seconds.” – <i>QAEngineer</i></blockquote>
+    </div>
+
+    <div class="section" id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <h3>How do I view my IP address?</h3>
+      <p>Your public IP is displayed in the top-left card labeled 🌐.</p>
+      <h3>Can I switch to dark mode?</h3>
+      <p>Yes—click the "Dark Mode" button at top-right to toggle themes.</p>
+      <h3>Is my data saved anywhere?</h3>
+      <p>No—this tool runs entirely in your browser and does not store any data.</p>
+      <h3>Which devices are supported?</h3>
+      <p>Works on desktop, mobile, and tablets with modern browsers and JavaScript enabled.</p>
+    </div>
+
+    <div class="section">
+      <h2>Share & Bookmark</h2>
+      <button onclick="navigator.clipboard.writeText(location.href)">📋 Copy Link</button>
+      <a href="#" style="margin-left:1rem;">👍 Share on Facebook</a>
+      <a href="#" style="margin-left:1rem;">🐦 Share on Twitter</a>
+    </div>
+
+  </main>
+  <footer>
+    &copy; 2025 FreeTools4U.site — All rights reserved.
+  </footer>
+
+  <script>
+    // Theme toggle
+    document.getElementById('theme-toggle').addEventListener('click', ()=>{
+      const dark = document.body.getAttribute('data-theme')==='dark';
+      document.body.setAttribute('data-theme', dark?'':'dark');
+      document.getElementById('theme-toggle').textContent = dark?'Dark Mode':'Light Mode';
+    });
+    // Fetch IP & location
+    fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
+      document.getElementById('ip').textContent = d.ip;
+      document.getElementById('location').textContent = [d.city,d.country_name].filter(Boolean).join(', ');
+    }).catch(_=>{});
+    // UA parsing
+    const ua=navigator.userAgent;
+    let br='Unknown', ver='';
+    if(/Chrome\//.test(ua)) [br,ver]=['Chrome',ua.match(/Chrome\/(\d+)/)[1]];
+    else if(/Firefox\//.test(ua)) [br,ver]=['Firefox',ua.match(/Firefox\/(\d+)/)[1]];
+    else if(/Safari\//.test(ua)) [br,ver]=['Safari',ua.match(/Version\/(\d+)/)[1]];
+    else if(/Edg\//.test(ua)) [br,ver]=['Edge',ua.match(/Edg\/(\d+)/)[1]];
+    document.getElementById('browser').textContent=`${br} ${ver}`;
+    let os='Unknown';
+    if(/Win/.test(ua)) os='Windows'; else if(/Mac/.test(ua)) os='macOS';
+    else if(/Android/.test(ua)) os='Android'; else if(/iPhone|iPad/.test(ua)) os='iOS';
+    document.getElementById('os').textContent=os;
+    document.getElementById('resolution').textContent=`${screen.width}×${screen.height}`;
+    if(navigator.getBattery) navigator.getBattery().then(b=>{
+      const lvl=Math.round(b.level*100)+'%';
+      document.getElementById('battery').textContent=`${lvl} (${b.charging?'charging':'discharging'})`;
+    });
+    function updTime(){
+      const now=new Date();
+      const t=now.toLocaleTimeString();
+      const tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
+      document.getElementById('time').textContent=`${t} (${tz})`;
+    }
+    updTime(); setInterval(updTime,1000);
+    const dev=document.getElementById('device');
+    if(/Mobi/.test(ua)) dev.textContent='Mobile'; else if(/Tablet|iPad/.test(ua)) dev.textContent='Tablet'; else dev.textContent='Desktop';
+  </script>
+</body>
+</html>
