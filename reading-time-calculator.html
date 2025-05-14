@@ -72,12 +72,13 @@
 </script>
 
   <style>
-    body {
+        body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
       background-color: #fefefe;
       color: #333;
+      font-size: 16px; /* Increased base size slightly */
     }
     header, footer {
       background-color: #0066cc;
@@ -85,26 +86,39 @@
       text-align: center;
       padding: 20px 10px;
     }
+    header h1 {
+      font-size: 2.2rem; /* Was 3rem inline, changed here for better mobile scaling */
+    }
+    header p {
+      font-size: 1.25rem;
+    }
     main {
       max-width: 800px;
       margin: 0 auto;
       padding: 30px 20px;
+      font-size: 17px; /* Slightly increased for readability */
     }
-    h1, h2 {
+    h1, h2, h3 {
       color: #0066cc;
+    }
+    h2 {
+      font-size: 1.75rem;
+    }
+    h3 {
+      font-size: 1.3rem;
     }
     textarea, input[type="number"] {
       width: 100%;
-      padding: 12px;
-      font-size: 16px;
+      padding: 14px;
+      font-size: 17px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 6px;
       resize: vertical;
     }
     button {
-      padding: 12px 24px;
-      font-size: 16px;
+      padding: 14px 24px;
+      font-size: 17px;
       background-color: #0066cc;
       color: white;
       border: none;
@@ -115,19 +129,13 @@
       background-color: #004c99;
     }
     .result {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
       margin-top: 20px;
     }
-    section {
-      margin-top: 40px;
-    }
-    ul {
-      padding-left: 20px;
-    }
     footer p {
       margin: 0;
-      font-size: 14px;
+      font-size: 15px;
     }
   </style>
 
