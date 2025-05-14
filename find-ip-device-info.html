@@ -169,119 +169,104 @@
   </footer>
 
   <script>
-    // Toggle light/dark mode
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-      if (document.body.hasAttribute('data-theme')) {
-        document.body.removeAttribute('data-theme');
-        themeToggle.textContent = 'Dark Mode';
-      } else {
-        document.body.setAttribute('data-theme', 'dark');
-        themeToggle.textContent = 'Light Mode';
+    // Public IP + Location
+    async function getIPAndLocation() {
+      try {
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        const ip = ipData.ip || 'N/A';
+        document.getElementById("ip").textContent = ip;
+
+        const locRes = await fetch(`https://ipapi.co/${ip}/json/`);
+        const locData = await locRes.json();
+        const city = locData.city || '';
+        const country = locData.country_name || '';
+        const locationText = [city, country].filter(Boolean).join(', ') || 'N/A';
+        document.getElementById("location").textContent = locationText;
+      } catch (e) {
+        document.getElementById("ip").textContent = "Error";
+        document.getElementById("location").textContent = "Error";
       }
-    });
-
-    // Fetch IP and location using ipapi.co
-    fetch('https://api.ipify.org?format=json')
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById('ip').textContent = data.ip || 'N/A';
-
-    // Now fetch location based on IP
-    return fetch(`https://ipapi.co/${data.ip}/json/`);
-  })
-  .then(res => res.json())
-  .then(loc => {
-    const city = loc.city || '';
-    const country = loc.country_name || '';
-    const locationText = [city, country].filter(Boolean).join(', ');
-    document.getElementById('location').textContent = locationText || 'N/A';
-  })
-  .catch(() => {
-    document.getElementById('ip').textContent = 'Error';
-    document.getElementById('location').textContent = 'Error';
-  });
-
-    // Detect browser name and version
-    const ua = navigator.userAgent;
-    let browser = 'Unknown', version = '';
-    if (/OPR|Opera/.test(ua)) {
-      browser = 'Opera';
-      version = ua.match(/(Opera|OPR)\/(\d+(\.\d+)?)/)[2];
-    } else if (/Edg\//.test(ua)) {
-      browser = 'Edge';
-      version = ua.match(/Edg\/(\d+(\.\d+)?)/)[1];
-    } else if (/Chrome\//.test(ua)) {
-      browser = 'Chrome';
-      version = ua.match(/Chrome\/(\d+(\.\d+)?)/)[1];
-    } else if (/Safari\//.test(ua)) {
-      browser = 'Safari';
-      version = ua.match(/Version\/(\d+(\.\d+)?)/)[1];
-    } else if (/Firefox\//.test(ua)) {
-      browser = 'Firefox';
-      version = ua.match(/Firefox\/(\d+(\.\d+)?)/)[1];
-    } else if (/MSIE|Trident/.test(ua)) {
-      browser = 'Internet Explorer';
-      version = ua.match(/(MSIE |rv:)(\d+(\.\d+)?)/)[2];
-    }
-    document.getElementById('browser').textContent = browser + ' ' + version;
-
-    // Detect operating system
-    let os = 'Unknown';
-    if (/Android/.test(ua)) {
-      os = 'Android';
-    } else if (/like Mac/.test(ua)) {
-      os = 'iOS';
-    } else if (/Win/.test(ua)) {
-      os = 'Windows';
-    } else if (/Mac/.test(ua)) {
-      os = 'macOS';
-    } else if (/Linux/.test(ua)) {
-      os = 'Linux';
-    }
-    document.getElementById('os').textContent = os;
-
-    // Screen resolution
-    const resW = window.screen.width;
-    const resH = window.screen.height;
-    document.getElementById('resolution').textContent = resW + ' × ' + resH + ' pixels';
-
-    // Battery status (if available)
-    if (navigator.getBattery) {
-      navigator.getBattery().then(batt => {
-        const level = Math.round(batt.level * 100) + '%';
-        const status = batt.charging ? 'charging' : 'not charging';
-        document.getElementById('battery').textContent = level + ' (' + status + ')';
-      }).catch(() => {
-        document.getElementById('battery').textContent = 'Unavailable';
-      });
-    } else {
-      document.getElementById('battery').textContent = 'Unavailable';
     }
 
-    // Update local time and timezone every second
-    function updateTime() {
-      const now = new Date();
-      const timeString = now.toLocaleTimeString('en-US', { hour12: false });
+    // Browser
+    function getBrowserInfo() {
+      const ua = navigator.userAgent;
+      let browser = "Unknown";
+
+      if (ua.includes("Firefox")) {
+        browser = "Firefox";
+      } else if (ua.includes("Chrome")) {
+        browser = "Chrome";
+      } else if (ua.includes("Safari") && !ua.includes("Chrome")) {
+        browser = "Safari";
+      } else if (ua.includes("Edge")) {
+        browser = "Edge";
+      }
+
+      const version = ua.match(/(Firefox|Chrome|Edge)\/(\d+)/);
+      document.getElementById("browser").textContent = version ? `${browser} ${version[2]}` : browser;
+    }
+
+    // OS
+    function getOS() {
+      const platform = navigator.platform.toLowerCase();
+      let os = "Unknown";
+
+      if (platform.includes("win")) os = "Windows";
+      else if (platform.includes("mac")) os = "macOS";
+      else if (platform.includes("linux")) os = "Linux";
+      else if (/android/.test(navigator.userAgent.toLowerCase())) os = "Android";
+      else if (/iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase())) os = "iOS";
+
+      document.getElementById("os").textContent = os;
+    }
+
+    // Screen Resolution
+    function getScreenResolution() {
+      const res = `${window.screen.width} × ${window.screen.height} pixels`;
+      document.getElementById("resolution").textContent = res;
+    }
+
+    // Battery
+    async function getBatteryStatus() {
+      if ('getBattery' in navigator) {
+        try {
+          const battery = await navigator.getBattery();
+          const level = Math.round(battery.level * 100);
+          const charging = battery.charging ? " (Charging)" : "";
+          document.getElementById("battery").textContent = `${level}%${charging}`;
+        } catch {
+          document.getElementById("battery").textContent = "Unavailable";
+        }
+      } else {
+        document.getElementById("battery").textContent = "Unavailable";
+      }
+    }
+
+    // Timezone
+    function getLocalTime() {
+      const date = new Date();
+      const time = date.toTimeString().split(" ")[0];
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      document.getElementById('time').textContent = timeString + ' (' + tz + ')';
+      document.getElementById("time").textContent = `${time} (${tz})`;
     }
-    updateTime();
-    setInterval(updateTime, 1000);
 
-    // Detect device type
-    let deviceType = 'Desktop';
-    if (/Tablet|iPad/i.test(ua)) {
-      deviceType = 'Tablet';
-      document.querySelector('.card:last-child .icon').textContent = '📱';
-    } else if (/Mobi|Android|iPhone|IEMobile|Opera Mini/i.test(ua)) {
-      deviceType = 'Mobile';
-      document.querySelector('.card:last-child .icon').textContent = '📱';
-    } else {
-      deviceType = 'Desktop';
-      document.querySelector('.card:last-child .icon').textContent = '💻';
+    // Device Type
+    function getDeviceType() {
+      const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+      document.getElementById("device").textContent = isMobile ? "Mobile" : "Desktop";
     }
-    document.getElementById('device').textContent = deviceType;
+
+    // Run all
+    getIPAndLocation();
+    getBrowserInfo();
+    getOS();
+    getScreenResolution();
+    getBatteryStatus();
+    getLocalTime();
+    getDeviceType();
   </script>
+  
 </body>
 </html>
