@@ -169,43 +169,113 @@
   </footer>
 
   <script>
-    // Theme toggle
-    document.getElementById('theme-toggle').addEventListener('click', ()=>{
-      const dark = document.body.getAttribute('data-theme')==='dark';
-      document.body.setAttribute('data-theme', dark?'':'dark');
-      document.getElementById('theme-toggle').textContent = dark?'Dark Mode':'Light Mode';
+    // Toggle light/dark mode
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      if (document.body.hasAttribute('data-theme')) {
+        document.body.removeAttribute('data-theme');
+        themeToggle.textContent = 'Dark Mode';
+      } else {
+        document.body.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = 'Light Mode';
+      }
     });
-    // Fetch IP & location
-    fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
-      document.getElementById('ip').textContent = d.ip;
-      document.getElementById('location').textContent = [d.city,d.country_name].filter(Boolean).join(', ');
-    }).catch(_=>{});
-    // UA parsing
-    const ua=navigator.userAgent;
-    let br='Unknown', ver='';
-    if(/Chrome\//.test(ua)) [br,ver]=['Chrome',ua.match(/Chrome\/(\d+)/)[1]];
-    else if(/Firefox\//.test(ua)) [br,ver]=['Firefox',ua.match(/Firefox\/(\d+)/)[1]];
-    else if(/Safari\//.test(ua)) [br,ver]=['Safari',ua.match(/Version\/(\d+)/)[1]];
-    else if(/Edg\//.test(ua)) [br,ver]=['Edge',ua.match(/Edg\/(\d+)/)[1]];
-    document.getElementById('browser').textContent=`${br} ${ver}`;
-    let os='Unknown';
-    if(/Win/.test(ua)) os='Windows'; else if(/Mac/.test(ua)) os='macOS';
-    else if(/Android/.test(ua)) os='Android'; else if(/iPhone|iPad/.test(ua)) os='iOS';
-    document.getElementById('os').textContent=os;
-    document.getElementById('resolution').textContent=`${screen.width}×${screen.height}`;
-    if(navigator.getBattery) navigator.getBattery().then(b=>{
-      const lvl=Math.round(b.level*100)+'%';
-      document.getElementById('battery').textContent=`${lvl} (${b.charging?'charging':'discharging'})`;
-    });
-    function updTime(){
-      const now=new Date();
-      const t=now.toLocaleTimeString();
-      const tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
-      document.getElementById('time').textContent=`${t} (${tz})`;
+
+    // Fetch IP and location using ipapi.co
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('ip').textContent = data.ip || 'N/A';
+        const city = data.city || '';
+        const country = data.country_name || '';
+        const loc = [city, country].filter(Boolean).join(', ');
+        document.getElementById('location').textContent = loc || 'N/A';
+      })
+      .catch(err => {
+        document.getElementById('ip').textContent = 'Error';
+        document.getElementById('location').textContent = 'Error';
+      });
+
+    // Detect browser name and version
+    const ua = navigator.userAgent;
+    let browser = 'Unknown', version = '';
+    if (/OPR|Opera/.test(ua)) {
+      browser = 'Opera';
+      version = ua.match(/(Opera|OPR)\/(\d+(\.\d+)?)/)[2];
+    } else if (/Edg\//.test(ua)) {
+      browser = 'Edge';
+      version = ua.match(/Edg\/(\d+(\.\d+)?)/)[1];
+    } else if (/Chrome\//.test(ua)) {
+      browser = 'Chrome';
+      version = ua.match(/Chrome\/(\d+(\.\d+)?)/)[1];
+    } else if (/Safari\//.test(ua)) {
+      browser = 'Safari';
+      version = ua.match(/Version\/(\d+(\.\d+)?)/)[1];
+    } else if (/Firefox\//.test(ua)) {
+      browser = 'Firefox';
+      version = ua.match(/Firefox\/(\d+(\.\d+)?)/)[1];
+    } else if (/MSIE|Trident/.test(ua)) {
+      browser = 'Internet Explorer';
+      version = ua.match(/(MSIE |rv:)(\d+(\.\d+)?)/)[2];
     }
-    updTime(); setInterval(updTime,1000);
-    const dev=document.getElementById('device');
-    if(/Mobi/.test(ua)) dev.textContent='Mobile'; else if(/Tablet|iPad/.test(ua)) dev.textContent='Tablet'; else dev.textContent='Desktop';
+    document.getElementById('browser').textContent = browser + ' ' + version;
+
+    // Detect operating system
+    let os = 'Unknown';
+    if (/Android/.test(ua)) {
+      os = 'Android';
+    } else if (/like Mac/.test(ua)) {
+      os = 'iOS';
+    } else if (/Win/.test(ua)) {
+      os = 'Windows';
+    } else if (/Mac/.test(ua)) {
+      os = 'macOS';
+    } else if (/Linux/.test(ua)) {
+      os = 'Linux';
+    }
+    document.getElementById('os').textContent = os;
+
+    // Screen resolution
+    const resW = window.screen.width;
+    const resH = window.screen.height;
+    document.getElementById('resolution').textContent = resW + ' × ' + resH + ' pixels';
+
+    // Battery status (if available)
+    if (navigator.getBattery) {
+      navigator.getBattery().then(batt => {
+        const level = Math.round(batt.level * 100) + '%';
+        const status = batt.charging ? 'charging' : 'not charging';
+        document.getElementById('battery').textContent = level + ' (' + status + ')';
+      }).catch(() => {
+        document.getElementById('battery').textContent = 'Unavailable';
+      });
+    } else {
+      document.getElementById('battery').textContent = 'Unavailable';
+    }
+
+    // Update local time and timezone every second
+    function updateTime() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('en-US', { hour12: false });
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      document.getElementById('time').textContent = timeString + ' (' + tz + ')';
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    // Detect device type
+    let deviceType = 'Desktop';
+    if (/Tablet|iPad/i.test(ua)) {
+      deviceType = 'Tablet';
+      document.querySelector('.card:last-child .icon').textContent = '📱';
+    } else if (/Mobi|Android|iPhone|IEMobile|Opera Mini/i.test(ua)) {
+      deviceType = 'Mobile';
+      document.querySelector('.card:last-child .icon').textContent = '📱';
+    } else {
+      deviceType = 'Desktop';
+      document.querySelector('.card:last-child .icon').textContent = '💻';
+    }
+    document.getElementById('device').textContent = deviceType;
   </script>
 </body>
 </html>
