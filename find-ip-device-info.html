@@ -182,19 +182,25 @@
     });
 
     // Fetch IP and location using ipapi.co
-    fetch('https://ipapi.co/json/')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('ip').textContent = data.ip || 'N/A';
-        const city = data.city || '';
-        const country = data.country_name || '';
-        const loc = [city, country].filter(Boolean).join(', ');
-        document.getElementById('location').textContent = loc || 'N/A';
-      })
-      .catch(err => {
-        document.getElementById('ip').textContent = 'Error';
-        document.getElementById('location').textContent = 'Error';
-      });
+    fetch('https://api.ipify.org?format=json')
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById('ip').textContent = data.ip || 'N/A';
+
+    // Now fetch location based on IP
+    return fetch(`https://ipapi.co/${data.ip}/json/`);
+  })
+  .then(res => res.json())
+  .then(loc => {
+    const city = loc.city || '';
+    const country = loc.country_name || '';
+    const locationText = [city, country].filter(Boolean).join(', ');
+    document.getElementById('location').textContent = locationText || 'N/A';
+  })
+  .catch(() => {
+    document.getElementById('ip').textContent = 'Error';
+    document.getElementById('location').textContent = 'Error';
+  });
 
     // Detect browser name and version
     const ua = navigator.userAgent;
