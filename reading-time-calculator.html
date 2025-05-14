@@ -9,7 +9,6 @@
   <meta name="author" content="FreeTools4U.site">
   <link rel="canonical" href="https://yourdomain.com/reading-time-calculator" />
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -18,24 +17,20 @@
       background-color: #fefefe;
       color: #333;
     }
-
     header, footer {
       background-color: #0066cc;
       color: #fff;
       text-align: center;
       padding: 20px 10px;
     }
-
     main {
       max-width: 800px;
       margin: 0 auto;
       padding: 30px 20px;
     }
-
     h1, h2 {
       color: #0066cc;
     }
-
     textarea, input[type="number"] {
       width: 100%;
       padding: 12px;
@@ -45,7 +40,6 @@
       border-radius: 6px;
       resize: vertical;
     }
-
     button {
       padding: 12px 24px;
       font-size: 16px;
@@ -55,65 +49,26 @@
       border-radius: 6px;
       cursor: pointer;
     }
-
     button:hover {
       background-color: #004c99;
     }
-
     .result {
       font-size: 18px;
       font-weight: bold;
       margin-top: 20px;
     }
-
     section {
       margin-top: 40px;
     }
-
     ul {
       padding-left: 20px;
     }
-
     footer p {
       margin: 0;
       font-size: 14px;
     }
   </style>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is reading time calculated?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This tool estimates reading time based on an average reading speed of 225 words per minute (WPM)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I paste full blog posts?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, you can paste any amount of text and the tool will automatically calculate the estimated reading time."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is this calculator mobile-friendly?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, it works on all devices including phones, tablets, and desktops."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
-
 <body>
 
 <header>
@@ -172,21 +127,22 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("calculateBtn").addEventListener("click", function () {
+    const btn = document.getElementById("calculateBtn");
+    const resultBox = document.getElementById("result");
+
+    btn.addEventListener("click", function () {
       const text = document.getElementById("text").value.trim();
       const wordCountInput = document.getElementById("wordCount").value.trim();
       let wordCount = 0;
 
-      if (wordCountInput) {
+      if (wordCountInput && !isNaN(wordCountInput)) {
         wordCount = parseInt(wordCountInput);
       } else if (text) {
-        wordCount = text.split(/\s+/).length;
+        wordCount = text.split(/\s+/).filter(Boolean).length;
       }
 
-      const result = document.getElementById("result");
-
-      if (!wordCount || isNaN(wordCount) || wordCount <= 0) {
-        result.textContent = "Please enter valid text or word count.";
+      if (wordCount <= 0 || isNaN(wordCount)) {
+        resultBox.textContent = "Please enter valid text or word count.";
         return;
       }
 
@@ -194,11 +150,11 @@
       const minutes = Math.floor(wordCount / avgWPM);
       const seconds = Math.round((wordCount % avgWPM) / (avgWPM / 60));
 
-      let time = "";
-      if (minutes > 0) time += `${minutes} min `;
-      time += `${seconds} sec`;
+      let output = "";
+      if (minutes > 0) output += `${minutes} min `;
+      output += `${seconds} sec`;
 
-      result.textContent = `Estimated reading time: ${time}`;
+      resultBox.textContent = `Estimated reading time: ${output}`;
     });
   });
 </script>
