@@ -2,108 +2,191 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reading Time Calculator – Estimate How Long It Takes to Read</title>
-  <meta name="description" content="Paste your text or enter word count to estimate reading time. Free, fast, and accurate reading time calculator.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reading Time Calculator | Estimate Read Duration Instantly</title>
+  <meta name="description" content="Paste your text or enter word count to estimate how long it will take to read. Fast, free, mobile-friendly reading time calculator.">
+  <meta name="keywords" content="reading time calculator, how long to read, estimate reading time, word count to time, reading speed tool">
+  <meta name="author" content="FreeTools4U.site">
   <link rel="canonical" href="https://yourdomain.com/reading-time-calculator" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      background: #f9f9f9;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fefefe;
       color: #333;
     }
-    h1 {
-      font-size: 26px;
-      margin-bottom: 10px;
-    }
-    textarea {
-      width: 100%;
-      height: 150px;
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-    .result {
-      font-weight: bold;
-      margin-top: 20px;
-      font-size: 18px;
-    }
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      font-size: 16px;
-    }
-    button {
-      padding: 10px 20px;
-      margin-top: 15px;
-      font-size: 16px;
+
+    header, footer {
       background-color: #0066cc;
       color: #fff;
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    h1, h2 {
+      color: #0066cc;
+    }
+
+    textarea, input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      resize: vertical;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #0066cc;
+      color: white;
       border: none;
+      border-radius: 6px;
       cursor: pointer;
-      border-radius: 4px;
     }
+
     button:hover {
-      background-color: #004999;
+      background-color: #004c99;
     }
-    label {
-      margin-top: 20px;
-      display: block;
+
+    .result {
+      font-size: 18px;
       font-weight: bold;
+      margin-top: 20px;
     }
-    .footer {
+
+    section {
       margin-top: 40px;
-      font-size: 13px;
-      color: #777;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
     }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is reading time calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This tool estimates reading time based on an average reading speed of 225 words per minute (WPM)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I paste full blog posts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, you can paste any amount of text and the tool will automatically calculate the estimated reading time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this calculator mobile-friendly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, it works on all devices including phones, tablets, and desktops."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
+
 <body>
 
+<header>
   <h1>Reading Time Calculator</h1>
-  <p>Estimate how long your article, blog post, or email will take to read. Paste your text or enter the word count below.</p>
+  <p>Paste your text or enter word count to instantly estimate reading time.</p>
+</header>
 
-  <label for="text">Paste your text:</label>
-  <textarea id="text" placeholder="Paste your text here..."></textarea>
+<main>
+  <section>
+    <h2>Estimate How Long It Takes to Read</h2>
+    <p>Use this free tool to calculate how long your audience might take to read your article, essay, or blog post. Based on average reading speed.</p>
 
-  <label for="wordCount">Or enter word count directly:</label>
-  <input type="number" id="wordCount" placeholder="e.g., 1200">
+    <label for="text">Paste your text below:</label>
+    <textarea id="text" rows="6" placeholder="Paste or type your text here..."></textarea>
 
-  <button onclick="calculateReadingTime()">Calculate Reading Time</button>
+    <label for="wordCount">Or enter word count directly:</label>
+    <input type="number" id="wordCount" placeholder="e.g. 1500">
 
-  <div class="result" id="result"></div>
+    <button onclick="calculateReadingTime()">Calculate Reading Time</button>
 
-  <div class="footer">
-    Free tool by YourSite.com – Built to help writers, marketers, and bloggers save time.
-  </div>
+    <div class="result" id="result"></div>
+  </section>
 
-  <script>
-    function calculateReadingTime() {
-      const text = document.getElementById("text").value.trim();
-      const wordCountInput = document.getElementById("wordCount").value;
-      const wordsFromText = text ? text.split(/\s+/).length : 0;
-      const wordCount = wordCountInput ? parseInt(wordCountInput, 10) : wordsFromText;
+  <section>
+    <h2>How It Works</h2>
+    <ul>
+      <li>Paste any text into the box or enter total word count</li>
+      <li>Click "Calculate Reading Time"</li>
+      <li>The tool estimates how long it would take to read the content at ~225 words per minute (WPM)</li>
+    </ul>
+  </section>
 
-      if (wordCount <= 0 || isNaN(wordCount)) {
-        document.getElementById("result").textContent = "Please enter text or a valid word count.";
-        return;
-      }
+  <section>
+    <h2>Why Use This Tool?</h2>
+    <ul>
+      <li>Plan better blog structure based on estimated reader attention</li>
+      <li>Optimize articles for engagement and time on page</li>
+      <li>Inform readers before they start reading</li>
+      <li>Fast, free, mobile-optimized, and works in-browser</li>
+    </ul>
+  </section>
 
-      const averageWPM = 225; // Average reading speed
-      const readingTime = wordCount / averageWPM;
-      const minutes = Math.floor(readingTime);
-      const seconds = Math.round((readingTime - minutes) * 60);
+  <section>
+    <h2>FAQs</h2>
+    <h3>Is it accurate?</h3>
+    <p>It’s based on an average reading speed of 225 WPM. Individual results may vary, but it's a reliable general estimate.</p>
 
-      const display = minutes > 0 
-        ? `${minutes} min ${seconds} sec`
-        : `${seconds} sec`;
+    <h3>Can I use this for school assignments or reports?</h3>
+    <p>Yes! Students and teachers use it all the time to estimate reading times for essays, speeches, or articles.</p>
+  </section>
+</main>
 
-      document.getElementById("result").textContent = `Estimated reading time: ${display}`;
+<footer>
+  <p>&copy; 2025 FreeTools4U.site – Built for content creators, marketers, students, and bloggers.</p>
+</footer>
+
+<script>
+  function calculateReadingTime() {
+    const text = document.getElementById("text").value.trim();
+    const wordCountInput = document.getElementById("wordCount").value.trim();
+    let wordCount = 0;
+
+    if (wordCountInput) {
+      wordCount = parseInt(wordCountInput);
+    } else if (text) {
+      wordCount = text.split(/\s+/).length;
     }
-  </script>
-</body>
-</html>
+
+    if (!wordCount || isNaN(wordCount) || wordCount <= 0) {
+      document.getElementById("result").textContent = "Please enter valid text or word count.";
+      return;
+    }
+
+    const avgWPM = 225;
+    const minutes = Math.floor(wordCount / avgWPM);
+    const seconds = Math.round((wordCount % avgWPM) / (avgW
