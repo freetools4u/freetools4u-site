@@ -132,7 +132,7 @@
     <label for="wordCount">Or enter word count directly:</label>
     <input type="number" id="wordCount" placeholder="e.g. 1500">
 
-    <button onclick="calculateReadingTime()">Calculate Reading Time</button>
+    <button id="calculateBtn">Calculate Reading Time</button>
 
     <div class="result" id="result"></div>
   </section>
@@ -171,22 +171,37 @@
 </footer>
 
 <script>
-  function calculateReadingTime() {
-    const text = document.getElementById("text").value.trim();
-    const wordCountInput = document.getElementById("wordCount").value.trim();
-    let wordCount = 0;
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("calculateBtn").addEventListener("click", function () {
+      const text = document.getElementById("text").value.trim();
+      const wordCountInput = document.getElementById("wordCount").value.trim();
+      let wordCount = 0;
 
-    if (wordCountInput) {
-      wordCount = parseInt(wordCountInput);
-    } else if (text) {
-      wordCount = text.split(/\s+/).length;
-    }
+      if (wordCountInput) {
+        wordCount = parseInt(wordCountInput);
+      } else if (text) {
+        wordCount = text.split(/\s+/).length;
+      }
 
-    if (!wordCount || isNaN(wordCount) || wordCount <= 0) {
-      document.getElementById("result").textContent = "Please enter valid text or word count.";
-      return;
-    }
+      const result = document.getElementById("result");
 
-    const avgWPM = 225;
-    const minutes = Math.floor(wordCount / avgWPM);
-    const seconds = Math.round((wordCount % avgWPM) / (avgW
+      if (!wordCount || isNaN(wordCount) || wordCount <= 0) {
+        result.textContent = "Please enter valid text or word count.";
+        return;
+      }
+
+      const avgWPM = 225;
+      const minutes = Math.floor(wordCount / avgWPM);
+      const seconds = Math.round((wordCount % avgWPM) / (avgWPM / 60));
+
+      let time = "";
+      if (minutes > 0) time += `${minutes} min `;
+      time += `${seconds} sec`;
+
+      result.textContent = `Estimated reading time: ${time}`;
+    });
+  });
+</script>
+
+</body>
+</html>
