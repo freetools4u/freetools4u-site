@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reading Time Calculator – Estimate How Long It Takes to Read</title>
+  <meta name="description" content="Paste your text or enter word count to estimate reading time. Free, fast, and accurate reading time calculator.">
+  <link rel="canonical" href="https://yourdomain.com/reading-time-calculator" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .result {
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 15px;
+      font-size: 16px;
+      background-color: #0066cc;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #004999;
+    }
+    label {
+      margin-top: 20px;
+      display: block;
+      font-weight: bold;
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Reading Time Calculator</h1>
+  <p>Estimate how long your article, blog post, or email will take to read. Paste your text or enter the word count below.</p>
+
+  <label for="text">Paste your text:</label>
+  <textarea id="text" placeholder="Paste your text here..."></textarea>
+
+  <label for="wordCount">Or enter word count directly:</label>
+  <input type="number" id="wordCount" placeholder="e.g., 1200">
+
+  <button onclick="calculateReadingTime()">Calculate Reading Time</button>
+
+  <div class="result" id="result"></div>
+
+  <div class="footer">
+    Free tool by YourSite.com – Built to help writers, marketers, and bloggers save time.
+  </div>
+
+  <script>
+    function calculateReadingTime() {
+      const text = document.getElementById("text").value.trim();
+      const wordCountInput = document.getElementById("wordCount").value;
+      const wordsFromText = text ? text.split(/\s+/).length : 0;
+      const wordCount = wordCountInput ? parseInt(wordCountInput, 10) : wordsFromText;
+
+      if (wordCount <= 0 || isNaN(wordCount)) {
+        document.getElementById("result").textContent = "Please enter text or a valid word count.";
+        return;
+      }
+
+      const averageWPM = 225; // Average reading speed
+      const readingTime = wordCount / averageWPM;
+      const minutes = Math.floor(readingTime);
+      const seconds = Math.round((readingTime - minutes) * 60);
+
+      const display = minutes > 0 
+        ? `${minutes} min ${seconds} sec`
+        : `${seconds} sec`;
+
+      document.getElementById("result").textContent = `Estimated reading time: ${display}`;
+    }
+  </script>
+</body>
+</html>
