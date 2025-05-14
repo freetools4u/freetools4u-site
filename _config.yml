@@ -2,7 +2,7 @@ title: "Free Tools 4U 🔧"
 description: "Discover 100% free and powerful online tools to boost productivity, master SEO, and simplify daily work. No downloads, just instant results! 🚀"
 locale: en_us
 lang: en_us
-email: wowthemesnet@gmail.com
+email: swipetoconnect@gmail.com
 timezone: UTC
 url: "https://www.freetools4u.site"
 baseurl: ""
@@ -22,7 +22,7 @@ kramdown:
 sass:
   sass_dir: _sass
   style: :compressed
-ganalytics: UA-113961478-1
+ganalytics: G-6PWM9RV7GF
 
 # Authors
 authors:
@@ -32,7 +32,7 @@ authors:
     avatar: 'assets/images/saif.png'
     email: talktoaamirsaif@gmail.com
     web: https://www.freetools4u.site/
-    twitter: https://www.freetools4u.site/
+    twitter: https://x.com/freetools4usite
     description: "Md Saif Ansari is a passionate digital creator and founder of Free Tools 4U. With a strong vision to simplify everyday tasks, he builds free, powerful, and user-friendly online tools that help people save time, boost productivity, and succeed in their goals. Follow his journey to unlock smarter digital solutions — with love and simplicity at the core. ❤️"
 
 # Social
