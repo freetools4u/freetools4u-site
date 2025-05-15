@@ -1,162 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free Hijri Date Widget for Websites | Islamic Calendar Embed</title>
-  <meta name="description" content="Add a beautiful, responsive Hijri date widget to your website. Lightweight, fast, and Islamic-themed. Includes Gregorian date, Hijri date, and backlink support." />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #f9fafb, #e5e7eb);
-      background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
-      color: #222;
-    }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 2rem;
-    }
-    .widget-card {
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-      padding: 2rem;
-      margin-bottom: 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .widget-card::before {
-      content: "";
-      position: absolute;
-      top: -20px;
-      right: -20px;
-      width: 120px;
-      height: 120px;
-      background: url('https://cdn-icons-png.flaticon.com/512/1995/1995783.png') no-repeat center;
-      background-size: contain;
-      opacity: 0.05;
-    }
-    .widget-card h1, .widget-card h2, .widget-card h3 {
-      margin-top: 0;
-    }
-    .widget-card h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-    .widget-card p {
-      font-size: 1rem;
-      color: #555;
-    }
-    .preview-box {
-      background: #f3f4f6;
-      border: 1px dashed #ccc;
-      padding: 1rem;
-      margin-top: 1.5rem;
-      border-radius: 10px;
-    }
-    iframe {
-      width: 100%;
-      height: 120px;
-      border: none;
-    }
-    pre {
-      background: #1f2937;
-      color: #f8f8f2;
-      padding: 1rem;
-      overflow-x: auto;
-      border-radius: 10px;
-      margin: 1rem 0;
-    }
-    .copy-btn {
-      background: #16a34a;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      float: right;
-      margin-top: -2.5rem;
-    }
-    .info-section {
-      margin-top: 2rem;
-    }
-    .cta {
-      margin-top: 3rem;
-      padding: 1.5rem;
-      background: #ecfdf5;
-      border-left: 6px solid #10b981;
-      border-radius: 8px;
-    }
-    .cta a {
-      color: #0f766e;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    ul {
-      padding-left: 1.2rem;
-    }
-    ul li {
-      margin-bottom: 0.4rem;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hijri Date Widget</title>
+<style>
+  body {
+    margin: 0; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background: transparent; 
+    color: #1f2937;
+  }
+  .hijri-widget {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 1.3rem 2rem;
+    box-shadow: 0 3px 12px rgba(16, 185, 129, 0.3);
+    max-width: 320px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    user-select: none;
+  }
+  .date-line {
+    margin: 0.4rem 0;
+  }
+  .backlink {
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+  }
+  .backlink a {
+    color: #10b981;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .backlink a:hover {
+    text-decoration: underline;
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="widget-card">
-      <div class="icon">🌙</div>
-      <h1>Hijri Date Widget for Websites</h1>
-      <p>Add a modern Islamic date widget to your website. It displays the current Hijri and Gregorian dates in a stylish, mobile-friendly layout inspired by traditional Islamic design.</p>
-      <div class="preview-box">
-        <iframe src="/widgets/hijri-date.html" loading="lazy" title="Hijri Date Preview"></iframe>
-      </div>
-    </div>
-
-    <div class="widget-card">
-      <h2>Embed the Widget on Your Site</h2>
-      <p>Choose your preferred method below to add the widget to your site:</p>
-
-      <h3>🧩 Script Embed (Recommended)</h3>
-      <pre id="script-code">&lt;div id="hijri-widget"&gt;&lt;/div&gt;
-&lt;script src="https://freetools4u.site/widgets/hijri-date.js" async&gt;&lt;/script&gt;</pre>
-      <button class="copy-btn" onclick="copyCode('script-code')">Copy</button>
-
-      <h3>🌐 Iframe Embed</h3>
-      <pre id="iframe-code">&lt;iframe src="https://freetools4u.site/widgets/hijri-date.html" width="100%" height="120" style="border:none;" title="Hijri Date Widget"&gt;&lt;/iframe&gt;</pre>
-      <button class="copy-btn" onclick="copyCode('iframe-code')">Copy</button>
-    </div>
-
-    <div class="info-section">
-      <h2>About This Widget</h2>
-      <p>This Hijri date widget automatically fetches today’s Islamic date using the Umm al-Qura calendar via a reliable API. It's perfect for mosques, schools, Islamic blogs, and community centers that want to display the Hijri date in an attractive, lightweight format.</p>
-
-      <h3>Features</h3>
-      <ul>
-        <li>✅ Hijri and Gregorian date in one line</li>
-        <li>✅ Sleek and professional Islamic look</li>
-        <li>✅ Works on any device or platform</li>
-        <li>✅ Embeds easily with script or iframe</li>
-        <li>✅ Adds backlink automatically to your site</li>
-      </ul>
-
-      <div class="cta">
-        Looking for more Islamic tools? 👉 <a href="https://freetools4u.site">Browse our full collection of embeddable Islamic widgets</a>
-      </div>
-    </div>
+  <div class="hijri-widget" aria-label="Hijri and Gregorian Date">
+    <div class="date-line" id="greg-date">Loading Gregorian date...</div>
+    <div class="date-line" id="hijri-date">Loading Hijri date...</div>
+    <div class="backlink">Powered by <a href="https://freetools4u.site" target="_blank" rel="noopener noreferrer">FreeTools4U.site</a></div>
   </div>
 
-  <script>
-    function copyCode(id) {
-      const code = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(code).then(() => {
-        alert('Embed code copied!');
-      });
+<script>
+  function updateDates() {
+    const greg = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('greg-date').textContent = 'Gregorian: ' + greg.toLocaleDateString(undefined, options);
+
+    // Hijri date using Intl.DateTimeFormat (modern browsers)
+    try {
+      const hijriFormatter = new Intl.DateTimeFormat('en-TN-u-ca-islamic', options);
+      const hijriDate = hijriFormatter.format(greg);
+      document.getElementById('hijri-date').textContent = 'Hijri: ' + hijriDate;
+    } catch {
+      document.getElementById('hijri-date').textContent = 'Hijri date not supported in this browser.';
     }
-  </script>
+  }
+
+  updateDates();
+</script>
 </body>
 </html>
