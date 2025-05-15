@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hijri Date Widget for Websites | Free Islamic Widget</title>
+  <meta name="description" content="Add a beautiful, responsive Hijri date widget to your website. Lightweight, fast, and Islamic-themed. Includes Gregorian and Hijri date with backlink." />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb url('https://www.transparenttextures.com/patterns/stardust.png');
+      color: #1f2937;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+    .widget-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+    .widget-card h1 {
+      font-size: 2rem;
+      margin-bottom: 0.3rem;
+    }
+    .widget-card p {
+      font-size: 1.1rem;
+      color: #4b5563;
+      margin-bottom: 1.2rem;
+    }
+    .preview-box {
+      max-width: 360px;
+      margin: auto;
+      border: 2px solid #d1d5db;
+      border-radius: 14px;
+      padding: 1rem;
+      background: #f3f4f6;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    }
+    iframe {
+      width: 100%;
+      height: 130px;
+      border: none;
+      border-radius: 10px;
+    }
+    pre {
+      background: #111827;
+      color: #d1d5db;
+      padding: 1rem;
+      overflow-x: auto;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      margin-top: 0.8rem;
+      text-align: left;
+    }
+    .copy-btn {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      float: right;
+      margin-top: 0.3rem;
+      transition: background-color 0.3s ease;
+    }
+    .copy-btn:hover {
+      background: #059669;
+    }
+    .info-section {
+      margin-top: 2rem;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .info-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .info-section ul li::before {
+      content: "✔️";
+      margin-right: 0.6rem;
+      color: #10b981;
+    }
+    .cta {
+      margin-top: 3rem;
+      padding: 1.5rem;
+      background: #d1fae5;
+      border-left: 6px solid #10b981;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .cta a {
+      color: #065f46;
+      text-decoration: none;
+    }
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 0.7rem;
+      color: #10b981;
+    }
+    /* Clear float for copy buttons */
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="widget-card">
+      <div class="icon">🌙</div>
+      <h1>Hijri Date Widget for Websites</h1>
+      <p>Add a modern Islamic date widget to your website. Shows Hijri and Gregorian date with a beautiful, responsive design.</p>
+
+      <div class="preview-box" aria-label="Live Preview of Hijri Date Widget">
+        <iframe src="/widgets/hijri-date.html" loading="lazy" title="Hijri Date Widget Preview"></iframe>
+      </div>
+    </div>
+
+    <div class="widget-card">
+      <h2>Embed the Widget on Your Site</h2>
+      <p>Choose your preferred method:</p>
+
+      <h3>🧩 Script Embed (Recommended)</h3>
+      <div class="clearfix">
+        <pre id="script-code">&lt;div id="hijri-widget"&gt;&lt;/div&gt;
+&lt;script src="https://freetools4u.site/widgets/hijri-date.js" async&gt;&lt;/script&gt;</pre>
+        <button class="copy-btn" onclick="copyCode('script-code')">Copy</button>
+      </div>
+
+      <h3>🌐 Iframe Embed</h3>
+      <div class="clearfix">
+        <pre id="iframe-code">&lt;iframe src="https://freetools4u.site/widgets/hijri-date.html" width="320" height="130" style="border:none;border-radius:12px;" title="Hijri Date Widget"&gt;&lt;/iframe&gt;</pre>
+        <button class="copy-btn" onclick="copyCode('iframe-code')">Copy</button>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>About This Widget</h2>
+      <p>This widget fetches today’s Hijri date using your browser's calendar capabilities and displays it alongside the Gregorian date. It's fast, mobile-friendly, and suitable for Islamic blogs, mosques, and community websites.</p>
+
+      <h3>Features</h3>
+      <ul>
+        <li>Hijri and Gregorian date display</li>
+        <li>Lightweight & fast load</li>
+        <li>Responsive, modern Islamic-themed design</li>
+        <li>Works seamlessly on any website</li>
+        <li>Includes a backlink to <a href="https://freetools4u.site" target="_blank" rel="noopener noreferrer">FreeTools4U.site</a></li>
+      </ul>
+
+      <div class="cta">
+        Want more Islamic widgets? 👉 <a href="https://freetools4u.site">Explore all free embeddable tools</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('Embed code copied!');
+      }).catch(() => {
+        alert('Failed to copy. Please copy manually.');
+      });
+    }
+  </script>
+</body>
+</html>
