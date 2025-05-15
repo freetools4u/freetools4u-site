@@ -1,46 +1,73 @@
-(function () {
-  // Hijri month names
-  const hijriMonths = [
-    "Muharram", "Safar", "Rabiʿ al-awwal", "Rabiʿ al-thani",
-    "Jumada al-awwal", "Jumada al-thani", "Rajab", "Shaʿban",
-    "Ramadan", "Shawwal", "Dhu al-Qaʿdah", "Dhu al-Ḥijjah"
-  ];
-
-  // Load Hijri date from Aladhan API
-  function fetchHijriDate() {
-    const today = new Date();
-    const dateStr = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
-
-    fetch(`https://api.aladhan.com/v1/gToH?date=${dateStr}`)
-      .then(response => response.json())
-      .then(data => {
-        const hijri = data.data.hijri;
-        const gregorian = data.data.gregorian;
-
-        const hijriDate = `${hijri.weekday.en}, ${hijri.day} ${hijri.month.en} ${hijri.year} AH`;
-        const gregDate = `${gregorian.date}`;
-
-        renderWidget(hijriDate, gregDate);
-      })
-      .catch(() => {
-        renderWidget("Hijri Date Unavailable", "");
-      });
+(function(){
+  // Create container if not exists
+  const containerId = 'hijri-widget';
+  let container = document.getElementById(containerId);
+  if (!container) {
+    container = document.createElement('div');
+    container.id = containerId;
+    document.body.appendChild(container);
   }
 
-  function renderWidget(hijri, gregorian) {
-    const el = document.getElementById("hijri-widget");
-    if (!el) return;
-
-    el.innerHTML = `
-      <div style="font-family: sans-serif; text-align: center; border: 1px solid #e2e8f0; padding: 1em; border-radius: 10px; max-width: 300px; margin: auto; background: #f9fafb;">
-        <div style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5em;">📅 ${hijri}</div>
-        <div style="font-size: 0.9rem; color: #555;">📆 ${gregorian}</div>
-        <div style="font-size: 0.75rem; margin-top: 0.8em; color: #888;">
-          🔗 <a href="https://freetools4u.site/widgets/hijri-date.html" target="_blank" rel="noopener" style="color: #4f46e5; text-decoration: none;">Powered by FreeTools4U.site</a>
-        </div>
-      </div>
+  // Inject widget styles
+  const styleId = 'hijri-widget-style';
+  if (!document.getElementById(styleId)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+      #${containerId} {
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 1.3rem 2rem;
+        box-shadow: 0 3px 12px rgba(16, 185, 129, 0.3);
+        max-width: 320px;
+        width: 100%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #1f2937;
+        text-align: center;
+        font-size: 1.1rem;
+        line-height: 1.4;
+        user-select: none;
+      }
+      #${containerId} .date-line {
+        margin: 0.4rem 0;
+      }
+      #${containerId} .backlink {
+        margin-top: 0.8rem;
+        font-size: 0.8rem;
+      }
+      #${containerId} .backlink a {
+        color: #10b981;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      #${containerId} .backlink a:hover {
+        text-decoration: underline;
+      }
     `;
+    document.head.appendChild(style);
   }
 
-  fetchHijriDate();
+  // Build widget HTML
+  container.innerHTML = `
+    <div class="date-line" id="greg-date">Loading Gregorian date...</div>
+    <div class="date-line" id="hijri-date">Loading Hijri date...</div>
+    <div class="backlink">Powered by <a href="https://freetools4u.site" target="_blank" rel="noopener noreferrer">FreeTools4U.site</a></div>
+  `;
+
+  // Date update function
+  function updateDates() {
+    const greg = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    container.querySelector('#greg-date').textContent = 'Gregorian: ' + greg.toLocaleDateString(undefined, options);
+
+    try {
+      const hijriFormatter = new Intl.DateTimeFormat('en-TN-u-ca-islamic', options);
+      const hijriDate = hijriFormatter.format(greg);
+      container.querySelector('#hijri-date').textContent = 'Hijri: ' + hijriDate;
+    } catch {
+      container.querySelector('#hijri-date').textContent = 'Hijri date not supported in this browser.';
+    }
+  }
+
+  updateDates();
 })();
