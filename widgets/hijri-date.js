@@ -36,7 +36,7 @@
         <div style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5em;">📅 ${hijri}</div>
         <div style="font-size: 0.9rem; color: #555;">📆 ${gregorian}</div>
         <div style="font-size: 0.75rem; margin-top: 0.8em; color: #888;">
-          🔗 <a href="https://freetools4u.site/hijri-date.html" target="_blank" rel="noopener" style="color: #4f46e5; text-decoration: none;">Powered by FreeTools4U.site</a>
+          🔗 <a href="https://freetools4u.site/widgets/hijri-date.html" target="_blank" rel="noopener" style="color: #4f46e5; text-decoration: none;">Powered by FreeTools4U.site</a>
         </div>
       </div>
     `;
