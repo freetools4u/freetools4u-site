@@ -45,7 +45,7 @@ image: assets/images/emoji-converter.webp
 <div style="border: 2px solid #4CAF50; padding: 20px; margin: 20px 0; border-radius: 8px; background: #f9fff9;">
   <h3 style="margin-top: 0; color: #2e7d32;">🔗 Try Our Tool (100% Free):</h3>
   <p style="margin-bottom: 10px;">Use our <strong>Best Text to Emoji generator Tool</strong> to convert your text into beautiful emoji included messages. 🤗</p>
-  <a href="https://freetools4u.site/emoji-converter.html" style="display: inline-block; background: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">👉 Calculate Reading Time Now</a>
+  <a href="https://freetools4u.site/emoji-converter.html" style="display: inline-block; background: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">👉 Convert Text to Emoji Now</a>
 </div>
 
 ---
