@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hijri Gregorian Calendar Widget</title>
   <style>
     :root {
@@ -11,67 +11,206 @@
       --font-size: 16px;
       --footer-bg: #505050;
       --footer-text: #ffffff;
+      --gregorian-color: #222;
+      --hijri-color: #FF8C00;
+      --today-bg: #FFE0B2;
+      --today-border: #FF8C00;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--secondary);
-      color: #000;
+      color: var(--gregorian-color);
       font-size: var(--font-size);
       display: flex;
       flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
+      padding: 10px;
+      user-select: none;
     }
 
-    .calendar-container {
-      background: var(--primary);
-      padding: 1rem;
-      border-radius: 12px 12px 0 0;
+    .calendar-wrapper {
       width: 100%;
-      box-sizing: border-box;
-      text-align: center;
-      color: #fff;
-    }
-
-    .dates {
+      max-width: 450px;
+      height: 100%;
+      max-height: 520px;
       background: var(--secondary);
-      padding: 1rem;
-      width: 100%;
-      box-sizing: border-box;
-      text-align: center;
-      color: #000;
+      border-radius: 15px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 2px solid var(--primary);
     }
 
-    .footer {
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 8px 12px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-btn {
+      cursor: pointer;
+      user-select: none;
+      font-size: 1.4rem;
+      padding: 0 10px;
+      color: white;
+      font-weight: 700;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+    .nav-btn:hover {
+      background: rgba(255 255 255 / 0.2);
+    }
+
+    #monthYearLabel {
+      flex-grow: 1;
+      text-align: center;
+      user-select: none;
+    }
+
+    .year-select {
+      background: var(--secondary);
+      border: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 4px;
+      padding: 3px 6px;
+      color: var(--primary);
+      cursor: pointer;
+      user-select: auto;
+    }
+
+    table.calendar {
       width: 100%;
+      border-collapse: collapse;
+      flex-grow: 1;
+      table-layout: fixed;
+    }
+
+    table.calendar thead tr {
+      background: var(--primary);
+      color: white;
+      user-select: none;
+    }
+
+    table.calendar thead th {
+      padding: 8px 0;
+      font-weight: 600;
+    }
+
+    table.calendar tbody td {
+      border: 1px solid #ddd;
+      height: 60px;
+      vertical-align: top;
+      padding: 4px 6px;
+      position: relative;
+      cursor: default;
+      background: var(--secondary);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    /* Highlight today's cell */
+    table.calendar tbody td.today {
+      background: var(--today-bg);
+      border: 2px solid var(--today-border);
+      padding: 3px 5px; /* reduce padding to keep size consistent with thicker border */
+    }
+
+    table.calendar tbody td:hover:not(.empty):not(.today) {
+      background: #fff5e6;
+    }
+
+    /* Gregorian date number top-left */
+    table.calendar tbody td .gregorian-date {
+      position: absolute;
+      top: 4px;
+      left: 6px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--gregorian-color);
+    }
+
+    /* Hijri date bottom-right in orange */
+    table.calendar tbody td .hijri-date {
+      position: absolute;
+      bottom: 4px;
+      right: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--hijri-color);
+      font-style: italic;
+    }
+
+    /* Empty cells are lighter */
+    table.calendar tbody td.empty {
+      background: #f5f5f5;
+      cursor: default;
+    }
+
+    footer {
       background: var(--footer-bg);
       color: var(--footer-text);
       text-align: center;
-      padding: 0.5rem;
-      font-size: 0.9em;
-      border-radius: 0 0 12px 12px;
+      padding: 10px 0;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-radius: 0 0 15px 15px;
+      user-select: none;
     }
 
-    .footer a {
+    footer a {
       color: var(--footer-text);
       text-decoration: underline;
     }
+
   </style>
 </head>
 <body>
-  <div class="calendar-container">
-    <h2>Hijri - Gregorian Calendar</h2>
-  </div>
-  <div class="dates" id="dateBox">
-    Loading date...
-  </div>
-  <div class="footer">
-    © <span id="year"></span> <a href="https://freetools4u.site" target="_blank">FreeTools4u</a> | Islamic Calendar Widget
+  <div class="calendar-wrapper" role="region" aria-label="Hijri Gregorian calendar widget">
+    <header>
+      <button aria-label="Previous month" class="nav-btn" id="prevMonthBtn">&#8592;</button>
+      <div id="monthYearLabel" aria-live="polite" aria-atomic="true">Loading...</div>
+      <button aria-label="Next month" class="nav-btn" id="nextMonthBtn">&#8594;</button>
+      <select id="yearSelect" class="year-select" aria-label="Select year"></select>
+    </header>
+
+    <table class="calendar" role="grid" aria-labelledby="monthYearLabel">
+      <thead>
+        <tr>
+          <th scope="col">Sun</th>
+          <th scope="col">Mon</th>
+          <th scope="col">Tue</th>
+          <th scope="col">Wed</th>
+          <th scope="col">Thu</th>
+          <th scope="col">Fri</th>
+          <th scope="col">Sat</th>
+        </tr>
+      </thead>
+      <tbody id="calendarBody">
+        <!-- Dates here -->
+      </tbody>
+    </table>
+    <footer>
+      © <span id="year"></span> <a href="https://freetools4u.site" target="_blank" rel="noopener noreferrer">FreeTools4u</a> | Islamic Calendar Widget
+    </footer>
   </div>
 
   <script>
+    // Get customization from URL query parameters with fallbacks
     function getQueryParam(name, fallback) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(name) || fallback;
@@ -79,33 +218,143 @@
 
     function applyStyles() {
       document.documentElement.style.setProperty('--primary', getQueryParam('primary', '#FF8C00'));
-      document.documentElement.style.setProperty('--secondary', getQueryParam('secondary', '#ffffff'));
+      document.documentElement.style.setProperty('--secondary', getQueryParam('secondary', '#FFFFFF'));
       document.documentElement.style.setProperty('--footer-bg', getQueryParam('footerbg', '#505050'));
-      document.documentElement.style.setProperty('--footer-text', getQueryParam('footertext', '#ffffff'));
+      document.documentElement.style.setProperty('--footer-text', getQueryParam('footertext', '#FFFFFF'));
       document.documentElement.style.setProperty('--font-size', getQueryParam('fontsize', '16') + 'px');
+      document.documentElement.style.setProperty('--hijri-color', getQueryParam('hijricolor', '#FF8C00'));
+      document.documentElement.style.setProperty('--gregorian-color', getQueryParam('gregoriancolor', '#222222'));
     }
 
-    function updateDate() {
-      const gregorian = new Date();
-      const hijri = new Intl.DateTimeFormat('en-TN-u-ca-islamic', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      }).format(gregorian);
+    // Globals for current displayed month and year
+    let currentYear, currentMonth;
 
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      const gregorianFormatted = gregorian.toLocaleDateString('en-US', options);
-
-      document.getElementById('dateBox').innerHTML = `
-        <div><strong>Gregorian:</strong> ${gregorianFormatted}</div>
-        <div><strong>Hijri:</strong> ${hijri}</div>
-      `;
+    // Populate year selector with options from currentYear -10 to +10
+    function populateYearSelector(selectedYear) {
+      const select = document.getElementById('yearSelect');
+      select.innerHTML = '';
+      const startYear = selectedYear - 10;
+      const endYear = selectedYear + 10;
+      for (let y = startYear; y <= endYear; y++) {
+        const option = document.createElement('option');
+        option.value = y;
+        option.textContent = y;
+        if (y === selectedYear) option.selected = true;
+        select.appendChild(option);
+      }
     }
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Generate calendar grid for a given year/month
+    function generateCalendar(year, month) {
+      const today = new Date();
+      const tbody = document.getElementById('calendarBody');
+      tbody.innerHTML = '';
 
-    applyStyles();
-    updateDate();
+      // Format month/year header in Gregorian and Hijri
+      const options = { month: 'long', year: 'numeric' };
+      const gregorianHeaderDate = new Date(year, month);
+      const gregorianHeader = gregorianHeaderDate.toLocaleDateString('en-US', options);
+      const hijriHeader = new Intl.DateTimeFormat('en-TN-u-ca-islamic', options).format(gregorianHeaderDate);
+
+      document.getElementById('monthYearLabel').textContent = `${gregorianHeader} / ${hijriHeader}`;
+
+      // Dates calculations
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+
+      const firstWeekDay = firstDay.getDay(); // 0=Sun
+      const daysInMonth = lastDay.getDate();
+
+      // Total cells needed
+      const totalCells = Math.ceil((firstWeekDay + daysInMonth) / 7) * 7;
+
+      for (let i = 0; i < totalCells; i++) {
+        if (i % 7 === 0) {
+          var row = document.createElement('tr');
+          tbody.appendChild(row);
+        }
+        const cell = document.createElement('td');
+
+        const dayNumber = i - firstWeekDay + 1;
+
+        if (dayNumber > 0 && dayNumber <= daysInMonth) {
+          const cellDate = new Date(year, month, dayNumber);
+
+          // Hijri day number
+          const hijriDay = new Intl.DateTimeFormat('en-TN-u-ca-islamic', { day: 'numeric' }).format(cellDate);
+
+          // Highlight today
+          const isToday =
+            cellDate.getFullYear() === today.getFullYear() &&
+            cellDate.getMonth() === today.getMonth() &&
+            cellDate.getDate() === today.getDate();
+
+          if (isToday) {
+            cell.classList.add('today');
+          }
+
+          cell.setAttribute('tabindex', '-1');
+          cell.innerHTML = `
+            <span class="gregorian-date" aria-label="Gregorian date">${dayNumber}</span>
+            <span class="hijri-date" aria-label="Hijri date">${hijriDay}</span>
+          `;
+        } else {
+          cell.classList.add('empty');
+          cell.innerHTML = '&nbsp;';
+          cell.setAttribute('aria-hidden', 'true');
+        }
+
+        row.appendChild(cell);
+      }
+    }
+
+    // Event handlers for navigation buttons and year select
+    function setupControls() {
+      document.getElementById('prevMonthBtn').addEventListener('click', () => {
+        if (currentMonth === 0) {
+          currentYear--;
+          currentMonth = 11;
+        } else {
+          currentMonth--;
+        }
+        updateCalendar();
+      });
+
+      document.getElementById('nextMonthBtn').addEventListener('click', () => {
+        if (currentMonth === 11) {
+          currentYear++;
+          currentMonth = 0;
+        } else {
+          currentMonth++;
+        }
+        updateCalendar();
+      });
+
+      document.getElementById('yearSelect').addEventListener('change', (e) => {
+        currentYear = parseInt(e.target.value, 10);
+        updateCalendar();
+      });
+    }
+
+    function updateCalendar() {
+      populateYearSelector(currentYear);
+      generateCalendar(currentYear, currentMonth);
+      document.getElementById('year').textContent = currentYear;
+    }
+
+    // Initialization
+    function init() {
+      applyStyles();
+
+      const today = new Date();
+      currentYear = today.getFullYear();
+      currentMonth = today.getMonth();
+
+      setupControls();
+      updateCalendar();
+    }
+
+    init();
   </script>
 </body>
 </html>
