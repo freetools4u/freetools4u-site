@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hijri Gregorian Calendar Widget</title>
+  <style>
+    :root {
+      --primary: #FF8C00;
+      --secondary: #ffffff;
+      --font-size: 16px;
+      --footer-bg: #505050;
+      --footer-text: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--secondary);
+      color: #000;
+      font-size: var(--font-size);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .calendar-container {
+      background: var(--primary);
+      padding: 1rem;
+      border-radius: 12px 12px 0 0;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+      color: #fff;
+    }
+
+    .dates {
+      background: var(--secondary);
+      padding: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+      color: #000;
+    }
+
+    .footer {
+      width: 100%;
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.9em;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .footer a {
+      color: var(--footer-text);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="calendar-container">
+    <h2>Hijri - Gregorian Calendar</h2>
+  </div>
+  <div class="dates" id="dateBox">
+    Loading date...
+  </div>
+  <div class="footer">
+    © <span id="year"></span> <a href="https://freetools4u.site" target="_blank">FreeTools4u</a> | Islamic Calendar Widget
+  </div>
+
+  <script>
+    function getQueryParam(name, fallback) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name) || fallback;
+    }
+
+    function applyStyles() {
+      document.documentElement.style.setProperty('--primary', getQueryParam('primary', '#FF8C00'));
+      document.documentElement.style.setProperty('--secondary', getQueryParam('secondary', '#ffffff'));
+      document.documentElement.style.setProperty('--footer-bg', getQueryParam('footerbg', '#505050'));
+      document.documentElement.style.setProperty('--footer-text', getQueryParam('footertext', '#ffffff'));
+      document.documentElement.style.setProperty('--font-size', getQueryParam('fontsize', '16') + 'px');
+    }
+
+    function updateDate() {
+      const gregorian = new Date();
+      const hijri = new Intl.DateTimeFormat('en-TN-u-ca-islamic', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).format(gregorian);
+
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const gregorianFormatted = gregorian.toLocaleDateString('en-US', options);
+
+      document.getElementById('dateBox').innerHTML = `
+        <div><strong>Gregorian:</strong> ${gregorianFormatted}</div>
+        <div><strong>Hijri:</strong> ${hijri}</div>
+      `;
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    applyStyles();
+    updateDate();
+  </script>
+</body>
+</html>
