@@ -30,8 +30,8 @@
     --shadow-color: rgba(0, 0, 0, 0.1);
     --hover-shadow: rgba(0, 0, 0, 0.15);
 
-    /* Islamic Pattern Background (subtle geometric) - Now to be applied directly */
-    --islamic-pattern: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="%23e8e8e8" d="M0 0h20v20H0z"/><path fill="%23dcdcdc" d="M10 0L0 10l10 10 10-10L10 0zM2 10L10 2l8 8-8 8L2 10z"/><path fill="%23f0f0f0" d="M10 4.472L4.472 10 10 15.528 15.528 10 10 4.472z"/></svg>');
+    /* Islamic Pattern Background (subtle geometric) - Now primarily for canvas drawing */
+    --islamic-pattern-url: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="%23e8e8e8" d="M0 0h20v20H0z"/><path fill="%23dcdcdc" d="M10 0L0 10l10 10 10-10L10 0zM2 10L10 2l8 8-8 8L2 10z"/><path fill="%23f0f0f0" d="M10 4.472L4.472 10 10 15.528 15.528 10 10 4.472z"/></svg>');
     --islamic-pattern-opacity: 0.1;
   }
 
@@ -43,7 +43,10 @@
   body {
     margin: 0; padding: 0;
     font-family: 'Montserrat', sans-serif;
-    background: var(--bg-color) var(--islamic-pattern); /* Subtle pattern background */
+    /* Apply background pattern directly to body, will also be drawn on canvas */
+    background: var(--bg-color) var(--islamic-pattern-url);
+    background-size: 20px 20px;
+    background-blend-mode: overlay;
     color: var(--text-color);
     min-height: 100vh;
     display: flex;
@@ -55,13 +58,13 @@
 
   main {
     width: 100%;
-    max-width: 680px; /* Slightly wider main container */
+    max-width: 680px; /* Wider main container */
     background: var(--card-bg-gradient-start); /* Simpler background for main */
     border-radius: 15px;
     box-shadow: 0 15px 40px var(--shadow-color);
     padding: 40px 50px 60px;
     position: relative; /* For progress bar */
-    overflow: hidden; /* For rounded corners with inner pattern */
+    overflow: hidden; /* For rounded corners */
   }
 
   h1.main-header-arabic {
@@ -90,12 +93,12 @@
     gap: 15px;
     margin-bottom: 40px;
     position: relative;
-    padding-top: 15px; /* Space for the line */
+    padding-top: 15px;
   }
 
   .progress-line {
     position: absolute;
-    top: 25px; /* Aligns with middle of dots */
+    top: 25px;
     left: 10%;
     right: 10%;
     height: 3px;
@@ -118,7 +121,7 @@
     position: relative;
     z-index: 1;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    border: 2px solid var(--card-bg-gradient-start); /* to make it stand out on the line */
+    border: 2px solid var(--card-bg-gradient-start);
   }
 
   .progress-dot.active {
@@ -133,7 +136,7 @@
   .step {
     display: none;
     animation: fadeInSlide 0.6s ease-out forwards;
-    padding-top: 20px; /* Space from progress indicator */
+    padding-top: 20px;
   }
   .step.active {
     display: block;
@@ -300,16 +303,10 @@
     color: var(--secondary-color);
   }
 
-  /* --- Final Card Container --- */
+  /* --- Final Card Container (Main Visual, but not captured directly) --- */
   #finalCard {
     display: none;
     background: linear-gradient(to bottom right, var(--card-bg-gradient-start), var(--card-bg-gradient-end));
-    background-image: var(--islamic-pattern), linear-gradient(to bottom right, var(--card-bg-gradient-start), var(--card-bg-gradient-end)); /* Pattern first */
-    background-size: 20px 20px, 100% 100%; /* Size of pattern, then gradient */
-    background-blend-mode: overlay; /* Blend pattern subtly */
-    opacity: 0.1; /* Initial opacity for pattern blend */
-    background-repeat: repeat;
-
     border-radius: 20px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.2);
     padding: 40px;
@@ -318,7 +315,7 @@
     overflow: hidden;
     border: 2px solid var(--light-accent-color);
     animation: cardAppear 0.8s ease-out forwards;
-    /* The opacity is handled separately for the pattern via background-blend-mode */
+    /* Pattern will be drawn on canvas, not applied here for live preview for simplicity */
   }
 
   @keyframes cardAppear {
@@ -329,23 +326,23 @@
   /* Card specific headers (ana muslim and Name's Identity Card) */
   #finalCard .card-title-arabic {
     font-family: 'Scheherazade New', serif;
-    font-size: 2rem; /* Little smaller */
-    color: var(--secondary-color); /* Different color */
+    font-size: 2rem;
+    color: var(--secondary-color);
     margin-bottom: 5px;
     line-height: 1.2;
   }
   #finalCard .card-title-english {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem; /* Little smaller */
-    color: var(--text-muted); /* Different color */
-    margin-bottom: 25px; /* Space before profile section */
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
   }
 
   /* Profile section on final card */
   .final-profile-section {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center align pic and name */
+    align-items: center;
     margin-bottom: 35px;
   }
 
@@ -374,18 +371,18 @@
     color: var(--secondary-color);
   }
 
-  #finalUserName { /* Styling for the name below the picture */
+  #finalUserName {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem; /* Adjusted dynamically by JS based on length */
+    font-size: 2.2rem;
     font-weight: 700;
     color: var(--primary-color);
-    margin-top: 20px; /* Space between pic and name */
+    margin-top: 20px;
     letter-spacing: 1px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-    white-space: nowrap; /* Prevent name from wrapping prematurely */
-    overflow: hidden; /* Hide overflow if name is too long */
-    text-overflow: ellipsis; /* Add ellipsis if name is too long */
-    max-width: 100%; /* Ensure it respects parent width */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
   }
 
   /* Info Grid Layout */
@@ -462,16 +459,14 @@
     text-decoration: underline;
   }
 
-  /* Footer credit on card */
+  /* Footer credit (will be redrawn on canvas) */
   #finalCardFooter {
-    position: absolute; /* Kept absolute for original display */
-    bottom: 15px;
-    left: 0;
-    right: 0;
     font-size: 0.85rem;
     color: var(--text-muted);
     font-family: 'Montserrat', sans-serif;
     text-align: center;
+    margin-top: 20px; /* Separates from message for live display */
+    padding-bottom: 10px; /* Space from bottom of actual card element */
   }
   #finalCardFooter a {
     color: var(--accent-color);
@@ -484,7 +479,7 @@
     text-decoration: underline;
   }
 
-  /* Share options (outside the capturable card for image generation) */
+  /* Share options (outside the capturable card to prevent their inclusion in the image) */
   #shareControls {
     margin-top: 30px;
     text-align: center;
@@ -793,7 +788,7 @@
     </section>
   </form>
 
-  <!-- Final Card (This is the element that will be visually displayed and then captured) -->
+  <!-- Final Card (This is the element that will be visually displayed on page) -->
   <section id="finalCard" aria-live="polite">
     <h3 class="card-title-arabic">أَنَا مُسْلِمٌ</h3>
     <p class="card-title-english" id="finalCardSubtitle"></p>
@@ -819,7 +814,7 @@
     </div>
   </section>
 
-  <!-- Share options outside the capturable card to prevent their inclusion in the image -->
+  <!-- Share options (outside the capturable card to prevent their inclusion in the image) -->
   <div id="shareControls" style="display:none; margin-top: 30px; text-align: center;">
       <button id="downloadCardBtn" class="share-button-group" style="margin-bottom: 15px;"><i class="fas fa-download"></i> Download Card</button>
       <button id="shareNativeBtn" class="share-button-group"><i class="fas fa-share-alt"></i> Share Card</button>
@@ -885,6 +880,7 @@
   const finalProfilePic = document.getElementById('finalProfilePic');
   const finalProfilePicPlaceholder = document.getElementById('finalProfilePicPlaceholder');
   const finalInfoGrid = document.getElementById('finalInfoGrid');
+  const finalCardFooter = document.getElementById('finalCardFooter'); // Get footer element
 
   // Share buttons
   const downloadCardBtn = document.getElementById('downloadCardBtn');
@@ -894,6 +890,10 @@
   // Progress Indicator
   const progressIndicator = document.getElementById('progressIndicator');
   const progressLineFill = document.getElementById('progressLineFill');
+
+  // Global variables to store generated image dataURL and blob for sharing
+  let generatedImageBlob = null;
+  let generatedImageName = '';
 
   // --- Helper Functions ---
 
@@ -1068,7 +1068,8 @@
     // Set final card content
     finalCardSubtitle.textContent = `${name || 'Your'}'s Identity Card`;
     finalUserName.textContent = name || "Muslim Believer"; // Default name if empty
-    // Adjust font size based on name length for better fit
+    
+    // Adjust font size dynamically based on name length for better fit
     const nameLength = (name || "Muslim Believer").length;
     let nameFontSize = '2.2rem'; // Base size
     if (nameLength > 10) nameFontSize = '2rem';
@@ -1107,7 +1108,7 @@
     // Show final card, hide form and display share controls
     cardForm.style.display = 'none';
     finalCard.style.display = 'block';
-    shareControls.style.display = 'block';
+    shareControls.style.display = 'block'; // Make share buttons visible
 
     // Scroll to final card
     finalCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1119,137 +1120,144 @@
   const shareUrl = window.location.href;
 
   async function generateCardImage() {
-    // Create a temporary wrapper for the finalCard for accurate capture
-    // This wrapper mimics the visual style needed for html2canvas
-    const tempCardWrapper = document.createElement('div');
-    const rootStyles = getComputedStyle(document.documentElement);
-    tempCardWrapper.style.cssText = `
+    // Hide the actual finalCard and shareControls temporarily before screenshotting
+    // This prevents them from being part of the screenshot of the main page,
+    // and ensures that only the temporary, isolated clone is captured.
+    finalCard.style.display = 'none'; 
+    shareControls.style.display = 'none';
+
+    // Create a temporary clone of the finalCard for html2canvas to render
+    const cardClone = finalCard.cloneNode(true);
+    cardClone.id = 'finalCardCloneForCapture'; // Give it a unique ID
+    
+    // Position the clone off-screen
+    cardClone.style.cssText = `
         position: absolute;
         left: -9999px;
         top: -9999px;
-        width: 600px; /* Base width for internal elements rendering, html2canvas scales it */
-        background: linear-gradient(to bottom right, ${rootStyles.getPropertyValue('--card-bg-gradient-start')}, ${rootStyles.getPropertyValue('--card-bg-gradient-end')});
-        background-image: ${rootStyles.getPropertyValue('--islamic-pattern')}, linear-gradient(to bottom right, ${rootStyles.getPropertyValue('--card-bg-gradient-start')}, ${rootStyles.getPropertyValue('--card-bg-gradient-end')});
-        background-size: 20px 20px, 100% 100%;
-        background-blend-mode: overlay;
-        opacity: ${rootStyles.getPropertyValue('--islamic-pattern-opacity')};
-        background-repeat: repeat;
-        border-radius: 20px;
-        border: 2px solid ${rootStyles.getPropertyValue('--light-accent-color')};
-        box-shadow: none; /* Avoid capturing main card's shadow on clone */
-        padding: 40px; /* Match finalCard padding */
+        width: 600px; /* Reference width for internal element scaling */
+        display: block; /* Ensure it's rendered for html2canvas */
+        box-shadow: none; /* Remove shadows from clone to avoid double rendering issues */
+        background: none; /* Let html2canvas capture content and apply background later on final canvas */
+        animation: none; /* Disable animations on clone */
+        opacity: 1; /* Ensure full opacity for capture */
+        z-index: -1; /* Place it behind other content */
     `;
 
-    const cardClone = finalCard.cloneNode(true);
-    // Adjust cloned card styles to ensure proper rendering for html2canvas
-    cardClone.style.animation = 'none'; // Disable animation on clone
-    cardClone.style.display = 'block'; // Ensure display is block for capture
-    cardClone.style.boxShadow = 'none'; // Remove box-shadow for capture
-    cardClone.style.opacity = '1'; // Ensure it's fully opaque for capture
-    cardClone.style.background = 'none'; // Remove background from clone, wrapper provides it
-
-    // Remove elements from the clone that shouldn't be in the image
+    // Remove footer from clone as it will be drawn manually on the final canvas
     const clonedFooter = cardClone.querySelector('#finalCardFooter');
-    if(clonedFooter) clonedFooter.remove(); // Footer will be redrawn on final canvas
+    if(clonedFooter) clonedFooter.remove();
 
-    tempCardWrapper.appendChild(cardClone);
-    document.body.appendChild(tempCardWrapper);
+    document.body.appendChild(cardClone); // Add clone to DOM
 
-    const options = {
-        scale: 2, // Higher scale for better resolution (2x current size)
-        useCORS: true, // Allow cross-origin images (like external profile pic if not loaded from same domain)
-        backgroundColor: null, // Transparent background from html2canvas (will be drawn by canvas later)
-        allowTaint: true, // Allows capturing tainted canvases (like if profile pic is from a different origin)
+    const html2canvasOptions = {
+        scale: 4, // Increase scale for very high resolution (4x)
+        useCORS: true, // Allow cross-origin images (important for profile pic)
+        backgroundColor: null, // Critical: make captured content transparent
+        allowTaint: true, // Allow tainting of canvas if images are from different origins
     };
 
     let capturedCanvas;
     try {
-        // Capture the cloned card element
-        capturedCanvas = await html2canvas(cardClone, options);
+        capturedCanvas = await html2canvas(cardClone, html2canvasOptions);
     } catch (error) {
-        console.error('Error capturing card:', error);
-        alert('Could not generate card image. Please try again.');
+        console.error('Error capturing card with html2canvas:', error);
+        alert('Could not generate card image. Please try again or check console for errors.');
         return null;
     } finally {
-        document.body.removeChild(tempCardWrapper); // Always clean up the temporary clone and wrapper
+        document.body.removeChild(cardClone); // Clean up the temporary clone
+        // Restore visibility of original card and share controls if needed
+        finalCard.style.display = 'block'; 
+        shareControls.style.display = 'block';
     }
 
-    // --- Create a new canvas with 9:16 aspect ratio (1080x1920px) ---
+    // --- Create a new canvas with 9:16 aspect ratio (1080x1920px) and compose ---
     const targetWidth = 1080;
-    const targetHeight = 1920; // 9:16 aspect ratio (1080/9 * 16)
+    const targetHeight = 1920; // 9:16 aspect ratio
 
     const finalCanvas = document.createElement('canvas');
     finalCanvas.width = targetWidth;
     finalCanvas.height = targetHeight;
     const finalCtx = finalCanvas.getContext('2d');
 
-    // Fill the background of the target canvas with the subtle pattern and base color
-    const bodyStyles = getComputedStyle(document.body);
-    finalCtx.fillStyle = bodyStyles.getPropertyValue('--bg-color');
+    // 1. Draw the background color of the body
+    finalCtx.fillStyle = getComputedStyle(document.body).getPropertyValue('--bg-color');
     finalCtx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
 
-    // Draw the background pattern directly to the canvas
+    // 2. Draw the background pattern (extracted from CSS variable)
     const patternImg = new Image();
-    patternImg.src = rootStyles.getPropertyValue('--islamic-pattern').replace(/url\(['"]?([^'"]+)['"]?\)/, '$1'); // Extract URL from CSS variable
+    // Safely extract URL from CSS variable value
+    const patternUrlMatch = getComputedStyle(document.documentElement).getPropertyValue('--islamic-pattern-url').match(/url\(['"]?([^'"]+)['"]?\)/);
+    if (patternUrlMatch && patternUrlMatch[1]) {
+        patternImg.src = patternUrlMatch[1];
+    }
+
+    // Wait for the pattern image to load
     await new Promise(resolve => {
-        patternImg.onload = resolve;
-        patternImg.onerror = () => { console.warn('Failed to load pattern image.'); resolve(); }; // Continue even if pattern fails to load
+        if (patternImg.src && patternImg.naturalHeight !== 0) { // Check if src is set and already loaded
+            resolve();
+        } else {
+            patternImg.onload = resolve;
+            patternImg.onerror = () => { console.warn('Failed to load pattern image.'); resolve(); }; // Resolve even on error
+        }
     });
 
     if (patternImg.complete && patternImg.naturalHeight !== 0) { // Check if image loaded successfully
         const pattern = finalCtx.createPattern(patternImg, 'repeat');
         finalCtx.save();
-        finalCtx.globalAlpha = parseFloat(rootStyles.getPropertyValue('--islamic-pattern-opacity')); // Apply opacity
+        // Apply pattern opacity as defined in CSS variable
+        finalCtx.globalAlpha = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--islamic-pattern-opacity'));
         finalCtx.fillStyle = pattern;
         finalCtx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
         finalCtx.restore();
     }
+    
+    // 3. Draw the main card content (from html2canvas capture) onto the final canvas
+    // Calculate scale and position to fit captured content nicely within 9:16
+    const cardContentAspectRatio = capturedCanvas.width / capturedCanvas.height;
+    const paddingAroundCard = 80; // Padding from the sides of the 9:16 image
+    const cardMaxWidth = targetWidth - (2 * paddingAroundCard);
+    const cardMaxHeight = targetHeight - (2 * paddingAroundCard);
 
+    let drawWidth = cardMaxWidth;
+    let drawHeight = cardMaxWidth / cardContentAspectRatio;
 
-    // Draw the captured card (from html2canvas) onto the new 9:16 canvas, centered
-    const capturedAspectRatio = capturedCanvas.width / capturedCanvas.height;
-    const targetAspectRatio = targetWidth / targetHeight;
-
-    let drawWidth = targetWidth;
-    let drawHeight = targetHeight;
-    let drawX = 0;
-    let drawY = 0;
-
-    // Calculate how to fit the captured image into the target aspect ratio
-    // This logic aims to contain the full card within the 9:16 frame, adding bars if needed
-    if (capturedAspectRatio > targetAspectRatio) {
-        // Captured image is wider than target (landscape-like relative to 9:16 portrait)
-        // Scale to fit target width, calculate height, center vertically
-        drawWidth = targetWidth;
-        drawHeight = targetWidth / capturedAspectRatio;
-        drawY = (targetHeight - drawHeight) / 2;
-    } else {
-        // Captured image is taller than target (portrait-like relative to 9:16 portrait)
-        // Scale to fit target height, calculate width, center horizontally
-        drawHeight = targetHeight;
-        drawWidth = targetHeight * capturedAspectRatio;
-        drawX = (targetWidth - drawWidth) / 2;
+    if (drawHeight > cardMaxHeight) {
+        drawHeight = cardMaxHeight;
+        drawWidth = cardMaxHeight * cardContentAspectRatio;
     }
 
-    // Draw the captured content from html2canvas onto the final canvas
+    const drawX = (targetWidth - drawWidth) / 2;
+    const drawY = (targetHeight - drawHeight) / 2;
+
     finalCtx.drawImage(capturedCanvas, drawX, drawY, drawWidth, drawHeight);
 
-    // Add the footer text directly to the canvas for precise positioning
-    const footerText = `© 2025 Islamicpedia.blog — All rights reserved.`;
-    finalCtx.font = '300 28px "Montserrat", sans-serif'; // Font size adjusted for 1920px height
-    finalCtx.fillStyle = '#6c757d'; // Use text-muted color
-    finalCtx.textAlign = 'center';
-    finalCtx.fillText(footerText, targetWidth / 2, targetHeight - 40); // Position near the bottom
+    // 4. Draw the card's accent border directly (since background gradient doesn't fully hide it)
+    finalCtx.lineWidth = 4; // Adjust to match CSS border-width of finalCard
+    finalCtx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--light-accent-color');
+    finalCtx.strokeRect(drawX, drawY, drawWidth, drawHeight); // Draw border on the captured card area
 
+    // 5. Draw the footer text directly onto the final canvas
+    const footerText = finalCardFooter.textContent.trim(); // Get the text from the actual footer
+    finalCtx.font = '300 28px "Montserrat", sans-serif'; // Adjust font size for 1920px height
+    finalCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-muted');
+    finalCtx.textAlign = 'center';
+    finalCtx.textBaseline = 'bottom'; // Align text from the bottom
+    finalCtx.fillText(footerText, targetWidth / 2, targetHeight - 40); // Position 40px from bottom
+
+    // Return the final image data URL
     return finalCanvas.toDataURL('image/png');
   }
 
+  // --- Event Listeners for share buttons ---
+
   downloadCardBtn.addEventListener('click', async () => {
+    generatedImageName = `Muslim_ID_Card_${nameInput.value.trim().replace(/\s/g, '_') || 'New'}.png`;
     const imageDataUrl = await generateCardImage();
     if (imageDataUrl) {
       const a = document.createElement('a');
       a.href = imageDataUrl;
-      a.download = `Muslim_ID_Card_${nameInput.value.trim().replace(/\s/g, '_') || 'New'}.png`;
+      a.download = generatedImageName;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -1257,13 +1265,15 @@
   });
 
   shareNativeBtn.addEventListener('click', async () => {
+    generatedImageName = `Muslim_ID_Card_${nameInput.value.trim().replace(/\s/g, '_') || 'New'}.png`;
     const imageDataUrl = await generateCardImage();
     if (imageDataUrl) {
-      // Convert data URL to Blob for native share
       const response = await fetch(imageDataUrl);
-      const blob = await response.blob();
-      const file = new File([blob], `Muslim_ID_Card_${nameInput.value.trim().replace(/\s/g, '_') || 'New'}.png`, { type: 'image/png' });
+      generatedImageBlob = await response.blob(); // Store blob for potential future use or re-share
 
+      const file = new File([generatedImageBlob], generatedImageName, { type: 'image/png' });
+
+      // Check if native sharing supports files
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
           await navigator.share({
@@ -1274,8 +1284,8 @@
           });
           console.log('Native share successful!');
         } catch (error) {
-          console.error('Native share failed:', error);
-          // Fallback if native sharing fails or is cancelled
+          console.error('Native share failed or cancelled:', error);
+          // Fallback to URL sharing if native share fails or is cancelled
           triggerFallbackShare(shareMessage, shareUrl);
         }
       } else {
@@ -1286,7 +1296,7 @@
     }
   });
 
-  // Fallback share function for social media links
+  // Fallback share function for social media links (only shares URL + message)
   function triggerFallbackShare(message, url) {
     const encodedMessage = encodeURIComponent(message);
     const encodedUrl = encodeURIComponent(url);
@@ -1306,11 +1316,11 @@
   showStep(0);
   updateButtons();
 
-  // Hide native share button and show fallback if not supported on load
+  // On page load, check Web Share API support and adjust button visibility
   if (!navigator.share || !navigator.canShare || !navigator.canShare({ files: [new File([], 'a.png', { type: 'image/png' })] })) {
-    shareNativeBtn.style.display = 'none';
-    // No need to show fallback buttons on load, only when user clicks share and native fails
-    // fallbackShareButtons.style.display = 'flex'; // Removed this line
+    shareNativeBtn.style.display = 'none'; // Hide native share if unsupported
+  } else {
+    fallbackShareButtons.style.display = 'none'; // Hide fallback if native is available
   }
 })();
 </script>
