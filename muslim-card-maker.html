@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
 
-<!-- Font Awesome for Icons (Simplified for brevity) -->
+<!-- Font Awesome for Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
@@ -22,15 +22,17 @@
     --accent-color: #e2a500; /* Golden */
     --light-accent-color: #ffd700; /* Brighter Gold */
     --bg-color: #f0f2f5; /* Light Gray Background */
-    --card-bg: #ffffff; /* White Card Background */
+    --card-bg-gradient-start: #fdfdfd; /* White Card Background Gradient Start */
+    --card-bg-gradient-end: #f9f9f9;   /* White Card Background Gradient End */
     --text-color: #333; /* Darker Text */
     --text-muted: #6c757d;
     --border-color: #ddd; /* Light Border */
     --shadow-color: rgba(0, 0, 0, 0.1);
     --hover-shadow: rgba(0, 0, 0, 0.15);
 
-    /* Islamic Pattern Background (subtle geometric) */
+    /* Islamic Pattern Background (subtle geometric) - Now to be applied directly */
     --islamic-pattern: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="%23e8e8e8" d="M0 0h20v20H0z"/><path fill="%23dcdcdc" d="M10 0L0 10l10 10 10-10L10 0zM2 10L10 2l8 8-8 8L2 10z"/><path fill="%23f0f0f0" d="M10 4.472L4.472 10 10 15.528 15.528 10 10 4.472z"/></svg>');
+    --islamic-pattern-opacity: 0.1;
   }
 
   /* --- Base Styles --- */
@@ -54,7 +56,7 @@
   main {
     width: 100%;
     max-width: 680px; /* Slightly wider main container */
-    background: var(--card-bg);
+    background: var(--card-bg-gradient-start); /* Simpler background for main */
     border-radius: 15px;
     box-shadow: 0 15px 40px var(--shadow-color);
     padding: 40px 50px 60px;
@@ -62,7 +64,7 @@
     overflow: hidden; /* For rounded corners with inner pattern */
   }
 
-  h1.main-header-arabic { /* Changed class for specific styling */
+  h1.main-header-arabic {
     font-family: 'Scheherazade New', serif;
     font-size: 3.2rem;
     color: var(--primary-color);
@@ -71,7 +73,7 @@
     font-weight: 700;
   }
 
-  h2.main-header-english { /* Changed class for specific styling */
+  h2.main-header-english {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
     font-size: 1.8rem;
@@ -116,7 +118,7 @@
     position: relative;
     z-index: 1;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    border: 2px solid var(--card-bg); /* to make it stand out on the line */
+    border: 2px solid var(--card-bg-gradient-start); /* to make it stand out on the line */
   }
 
   .progress-dot.active {
@@ -164,7 +166,7 @@
   select:focus,
   textarea:focus {
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(226, 165, 0, 0.2); /* Using direct RGB for clarity */
+    box-shadow: 0 0 0 3px rgba(226, 165, 0, 0.2);
     outline: none;
   }
 
@@ -209,7 +211,7 @@
   input[type="checkbox"]:checked::before {
     content: '\2713'; /* Checkmark character */
     font-size: 14px;
-    color: var(--card-bg);
+    color: var(--card-bg-gradient-start);
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
@@ -253,7 +255,7 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
   }
-  button[id^="prevBtn"] { /* Target all previous buttons */
+  button[id^="prevBtn"] {
     background: none;
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
@@ -272,7 +274,7 @@
   }
   #profilePicPreview {
     display: block;
-    width: 150px; /* Larger preview */
+    width: 150px;
     height: 150px;
     border-radius: 50%;
     margin: 20px auto 25px;
@@ -301,56 +303,49 @@
   /* --- Final Card Container --- */
   #finalCard {
     display: none;
-    background: linear-gradient(to bottom right, #fdfdfd, #f9f9f9); /* Subtle gradient */
-    border-radius: 20px; /* More rounded */
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2); /* Deeper shadow */
+    background: linear-gradient(to bottom right, var(--card-bg-gradient-start), var(--card-bg-gradient-end));
+    background-image: var(--islamic-pattern), linear-gradient(to bottom right, var(--card-bg-gradient-start), var(--card-bg-gradient-end)); /* Pattern first */
+    background-size: 20px 20px, 100% 100%; /* Size of pattern, then gradient */
+    background-blend-mode: overlay; /* Blend pattern subtly */
+    opacity: 0.1; /* Initial opacity for pattern blend */
+    background-repeat: repeat;
+
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
     padding: 40px;
     text-align: center;
     position: relative;
-    overflow: hidden; /* For patterns */
-    border: 2px solid var(--light-accent-color); /* Elegant border */
-    animation: cardAppear 0.8s ease-out forwards; /* Card appearance animation */
+    overflow: hidden;
+    border: 2px solid var(--light-accent-color);
+    animation: cardAppear 0.8s ease-out forwards;
+    /* The opacity is handled separately for the pattern via background-blend-mode */
   }
 
   @keyframes cardAppear {
     from {opacity: 0; transform: scale(0.9) translateY(20px);}
     to {opacity: 1; transform: scale(1) translateY(0);}
   }
-
-  /* Inner pattern for card */
-  #finalCard::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: var(--islamic-pattern);
-    opacity: 0.1; /* Very subtle */
-    z-index: 0;
-    border-radius: 20px; /* Match card border-radius */
-  }
-  #finalCard > * {
-    position: relative; /* Ensure content is above pattern */
-    z-index: 1;
-  }
-
-  /* Card specific headers */
-  #finalCard .card-title-arabic { /* Smaller, different color */
+  
+  /* Card specific headers (ana muslim and Name's Identity Card) */
+  #finalCard .card-title-arabic {
     font-family: 'Scheherazade New', serif;
-    font-size: 2rem;
+    font-size: 2rem; /* Little smaller */
     color: var(--secondary-color); /* Different color */
     margin-bottom: 5px;
+    line-height: 1.2;
   }
-  #finalCard .card-title-english { /* Smaller, different color */
+  #finalCard .card-title-english {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
+    font-size: 1.3rem; /* Little smaller */
     color: var(--text-muted); /* Different color */
-    margin-bottom: 25px;
+    margin-bottom: 25px; /* Space before profile section */
   }
 
   /* Profile section on final card */
   .final-profile-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Center align pic and name */
     margin-bottom: 35px;
   }
 
@@ -358,9 +353,9 @@
     width: 160px;
     height: 160px;
     border-radius: 50%;
-    border: 6px solid var(--accent-color); /* Thicker golden border */
+    border: 6px solid var(--accent-color);
     object-fit: cover;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* More prominent shadow */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   }
   #finalProfilePicPlaceholder {
     width: 160px;
@@ -381,19 +376,23 @@
 
   #finalUserName { /* Styling for the name below the picture */
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
+    font-size: 2.2rem; /* Adjusted dynamically by JS based on length */
     font-weight: 700;
     color: var(--primary-color);
-    margin-top: 20px;
+    margin-top: 20px; /* Space between pic and name */
     letter-spacing: 1px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    white-space: nowrap; /* Prevent name from wrapping prematurely */
+    overflow: hidden; /* Hide overflow if name is too long */
+    text-overflow: ellipsis; /* Add ellipsis if name is too long */
+    max-width: 100%; /* Ensure it respects parent width */
   }
 
   /* Info Grid Layout */
   .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adapt to available space */
-    gap: 25px; /* More space between items */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
     margin-bottom: 40px;
     text-align: left;
     padding: 0 10px;
@@ -402,7 +401,7 @@
   .info-item {
     background: #fdfdfd;
     border: 1px solid var(--border-color);
-    border-left: 5px solid var(--accent-color); /* Left accent border */
+    border-left: 5px solid var(--accent-color);
     border-radius: 10px;
     padding: 15px 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
@@ -426,7 +425,7 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-  .info-label i { /* Icon for info label */
+  .info-label i {
     margin-right: 8px;
     color: var(--accent-color);
     font-size: 1.1em;
@@ -435,13 +434,13 @@
     color: var(--primary-color);
     font-weight: 600;
     font-size: 1.1rem;
-    word-wrap: break-word; /* Ensure long text wraps */
+    word-wrap: break-word;
     width: 100%;
   }
 
   /* Heartfelt message */
   #heartfeltMessage {
-    font-family: 'Playfair Display', serif; /* Elegant font */
+    font-family: 'Playfair Display', serif;
     font-style: italic;
     font-size: 1.15rem;
     color: var(--text-muted);
@@ -463,49 +462,9 @@
     text-decoration: underline;
   }
 
-  /* Share buttons container */
-  #shareOptions { /* New container for all sharing buttons */
-    display: flex;
-    flex-direction: column; /* Stack download and share buttons */
-    gap: 20px;
-    margin-bottom: 30px;
-  }
-
-  .share-button-group {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping on small screens */
-    justify-content: center;
-    gap: 15px; /* Reduced gap for more buttons */
-  }
-
-  .share-button-group a, .share-button-group button { /* Apply styles to anchor and new button */
-    background: var(--secondary-color);
-    color: white;
-    text-decoration: none;
-    padding: 10px 18px; /* Slightly smaller padding */
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border: none; /* Remove default button border */
-    cursor: pointer;
-  }
-  .share-button-group a:hover, .share-button-group button:hover {
-    background: var(--accent-color);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  }
-  .share-button-group a i, .share-button-group button i {
-    font-size: 1.2em;
-  }
-
   /* Footer credit on card */
   #finalCardFooter {
-    position: absolute;
+    position: absolute; /* Kept absolute for original display */
     bottom: 15px;
     left: 0;
     right: 0;
@@ -524,6 +483,45 @@
     color: var(--primary-color);
     text-decoration: underline;
   }
+
+  /* Share options (outside the capturable card for image generation) */
+  #shareControls {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .share-button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .share-button-group a, .share-button-group button {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: none;
+    cursor: pointer;
+  }
+  .share-button-group a:hover, .share-button-group button:hover {
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--light-accent-color) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  }
+  .share-button-group a i, .share-button-group button i {
+    font-size: 1.2em;
+  }
+  #downloadCardBtn { margin-bottom: 15px; } /* Space between Download and Share button */
 
   /* Responsive Adjustments */
   @media (max-width: 768px) {
@@ -553,7 +551,7 @@
       height: 12px;
     }
     .info-grid {
-      grid-template-columns: 1fr; /* Stack items on small screens */
+      grid-template-columns: 1fr;
       gap: 20px;
     }
     #finalProfilePic, #finalProfilePicPlaceholder {
@@ -583,10 +581,10 @@
       margin-bottom: 25px;
     }
     .progress-line, .progress-line-fill {
-      display: none; /* Hide line on very small screens */
+      display: none;
     }
     .progress-indicator {
-      gap: 8px; /* More compact dots */
+      gap: 8px;
     }
     label {
       font-size: 0.95rem;
@@ -630,7 +628,7 @@
       flex-direction: column;
     }
     .share-button-group a, .share-button-group button {
-      width: 80%; /* Occupy more width */
+      width: 80%;
       margin: 0 auto;
       justify-content: center;
     }
@@ -753,7 +751,7 @@
       <select id="verseSelect" required>
         <option value="">-- Select a Verse --</option>
         <option value="Indeed, with hardship comes ease. (94:6)">Indeed, with hardship comes ease. (94:6)</option>
-        <option value="So remember Me; I will remember you. And be grateful to Me and do not deny Me. (2:152)">So remember Me; I will remember you. (2:152)</option>
+        <option value="So remember Me; I will remember you. (2:152)">So remember Me; I will remember you. (2:152)</option>
         <option value="And He is with you wherever you are. (57:4)">And He is with you wherever you are. (57:4)</option>
         <option value="Indeed, Allah loves those who are constantly repentant and loves those who purify themselves. (2:222)">Indeed, Allah loves those who are constantly repentant. (2:222)</option>
         <option value="Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire. (2:201)">Our Lord, give us in this world [that which is] good... (2:201)</option>
@@ -795,8 +793,7 @@
     </section>
   </form>
 
-  <!-- Final Card -->
-  <!-- The final card content that will be converted to image -->
+  <!-- Final Card (This is the element that will be visually displayed and then captured) -->
   <section id="finalCard" aria-live="polite">
     <h3 class="card-title-arabic">أَنَا مُسْلِمٌ</h3>
     <p class="card-title-english" id="finalCardSubtitle"></p>
@@ -817,25 +814,23 @@
       Created with <i class="fas fa-heart" style="color: var(--accent-color);"></i> by <a href="https://www.islamicpedia.blog" target="_blank" rel="noopener noreferrer">Islamicpedia.blog</a>
     </div>
 
-    <!-- This div wraps elements that should be part of the image generation, but not the share buttons themselves -->
-    <div id="cardForScreenshot" style="position:absolute; top:-9999px; left:-9999px;"></div>
+    <div id="finalCardFooter">
+      © 2025 Islamicpedia.blog — All rights reserved.
+    </div>
+  </section>
 
-    <div id="shareOptions">
-      <button id="downloadCardBtn" class="download-button"><i class="fas fa-download"></i> Download Card</button>
-      <button id="shareNativeBtn" class="share-button"><i class="fas fa-share-alt"></i> Share Card</button>
-      <div class="share-button-group" id="fallbackShareButtons">
+  <!-- Share options outside the capturable card to prevent their inclusion in the image -->
+  <div id="shareControls" style="display:none; margin-top: 30px; text-align: center;">
+      <button id="downloadCardBtn" class="share-button-group" style="margin-bottom: 15px;"><i class="fas fa-download"></i> Download Card</button>
+      <button id="shareNativeBtn" class="share-button-group"><i class="fas fa-share-alt"></i> Share Card</button>
+      <div class="share-button-group" id="fallbackShareButtons" style="margin-top: 20px; display: none;">
         <a href="#" id="shareWhatsApp" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
         <a href="#" id="shareFacebook" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
         <a href="#" id="shareTelegram" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram"><i class="fab fa-telegram-plane"></i> Telegram</a>
         <a href="#" id="shareX" target="_blank" rel="noopener noreferrer" aria-label="Share on X (Twitter)"><i class="fab fa-x-twitter"></i> X (Twitter)</a>
         <a href="#" id="shareSnapchat" target="_blank" rel="noopener noreferrer" aria-label="Share on Snapchat"><i class="fab fa-snapchat-ghost"></i> Snapchat</a>
       </div>
-    </div>
-
-    <div id="finalCardFooter">
-      © 2025 Islamicpedia.blog — All rights reserved.
-    </div>
-  </section>
+  </div>
 </main>
 
 <!-- html2canvas library for screenshotting -->
@@ -856,8 +851,8 @@
   const roleSelect = document.getElementById('roleSelect');
   const customRoleInput = document.getElementById('customRoleInput');
   const traitsCheckboxes = document.querySelectorAll('#traitsContainer input[type="checkbox"]');
-  const verseSelect = document.getElementById('verseSelect'); // New verse select
-  const customVerseInput = document.getElementById('customVerseInput'); // New custom verse input
+  const verseSelect = document.getElementById('verseSelect');
+  const customVerseInput = document.getElementById('customVerseInput');
   const profilePicInput = document.getElementById('profilePicInput');
   const profilePicPreview = document.getElementById('profilePicPreview');
   const profilePicPlaceholder = document.getElementById('profilePicPlaceholder');
@@ -881,15 +876,15 @@
   const prevBtn8 = document.getElementById('prevBtn8');
 
   const cardForm = document.getElementById('cardForm');
-  const finalCard = document.getElementById('finalCard');
+  const finalCard = document.getElementById('finalCard'); // The actual card element on the page
+  const shareControls = document.getElementById('shareControls'); // New container for share buttons
 
-  // Final card elements
+  // Final card content elements
   const finalCardSubtitle = document.getElementById('finalCardSubtitle');
   const finalUserName = document.getElementById('finalUserName');
   const finalProfilePic = document.getElementById('finalProfilePic');
   const finalProfilePicPlaceholder = document.getElementById('finalProfilePicPlaceholder');
   const finalInfoGrid = document.getElementById('finalInfoGrid');
-  const cardForScreenshot = document.getElementById('cardForScreenshot'); // Hidden div for screenshot
 
   // Share buttons
   const downloadCardBtn = document.getElementById('downloadCardBtn');
@@ -902,7 +897,6 @@
 
   // --- Helper Functions ---
 
-  // Initialize progress dots
   function initializeProgressDots() {
     for (let i = 0; i < totalSteps; i++) {
       const dot = document.createElement('div');
@@ -935,9 +929,7 @@
     updateProgressIndicator();
   }
 
-  // Enable/Disable next buttons based on validations
   function updateButtons() {
-    // Disable all "Next" buttons initially
     [nextBtn1, nextBtn2, nextBtn3, nextBtn4, nextBtn5, nextBtn6, nextBtn7, generateCardBtn].forEach(btn => {
       if (btn) btn.disabled = true;
     });
@@ -966,7 +958,6 @@
         if (Array.from(traitsCheckboxes).some(chk => chk.checked)) nextBtn6.disabled = false;
         break;
       case 6:
-        // Validate verse: either a pre-selected one, or custom one if "Other" is selected
         if (verseSelect.value === "Add Custom Verse") {
           if (customVerseInput.value.trim()) nextBtn7.disabled = false;
         } else {
@@ -974,13 +965,12 @@
         }
         break;
       case 7:
-        // Profile pic is optional, so generate button is always enabled here
         generateCardBtn.disabled = false;
         break;
     }
   }
 
-  // --- Event Listeners for validation ---
+  // --- Event Listeners for form inputs ---
   nameInput.addEventListener('input', updateButtons);
   meaningInput.addEventListener('input', updateButtons);
   quranRadios.forEach(r => r.addEventListener('change', updateButtons));
@@ -992,7 +982,7 @@
       customRoleInput.focus();
     } else {
       customRoleInput.style.display = 'none';
-      customRoleInput.value = ''; // Clear custom role if not 'Other'
+      customRoleInput.value = '';
     }
     updateButtons();
   });
@@ -1006,7 +996,7 @@
       customVerseInput.focus();
     } else {
       customVerseInput.style.display = 'none';
-      customVerseInput.value = ''; // Clear custom verse if pre-selected
+      customVerseInput.value = '';
     }
     updateButtons();
   });
@@ -1019,13 +1009,13 @@
       reader.onload = e => {
         profilePicPreview.src = e.target.result;
         profilePicPreview.style.display = 'block';
-        profilePicPlaceholder.style.display = 'none'; // Hide placeholder
+        profilePicPlaceholder.style.display = 'none';
       };
       reader.readAsDataURL(file);
     } else {
       profilePicPreview.style.display = 'none';
       profilePicPreview.src = '';
-      profilePicPlaceholder.style.display = 'flex'; // Show placeholder
+      profilePicPlaceholder.style.display = 'flex';
     }
     updateButtons();
   });
@@ -1053,7 +1043,7 @@
 
     // Gather data
     const name = nameInput.value.trim();
-    const meaning = meaningInput.value.trim();
+    const meaning = meaningInput.value.trim() || "Not specified";
     const quranMention = Array.from(quranRadios).find(r => r.checked)?.value || "Not specified";
     const gender = genderSelect.value || "Not specified";
 
@@ -1076,8 +1066,16 @@
     finalInfoGrid.innerHTML = "";
 
     // Set final card content
-    finalCardSubtitle.textContent = `${name}'s Identity Card`;
-    finalUserName.textContent = name;
+    finalCardSubtitle.textContent = `${name || 'Your'}'s Identity Card`;
+    finalUserName.textContent = name || "Muslim Believer"; // Default name if empty
+    // Adjust font size based on name length for better fit
+    const nameLength = (name || "Muslim Believer").length;
+    let nameFontSize = '2.2rem'; // Base size
+    if (nameLength > 10) nameFontSize = '2rem';
+    if (nameLength > 15) nameFontSize = '1.8rem';
+    if (nameLength > 20) nameFontSize = '1.6rem';
+    finalUserName.style.fontSize = nameFontSize;
+
 
     if (profilePicSrc) {
       finalProfilePic.src = profilePicSrc;
@@ -1106,9 +1104,10 @@
     finalInfoGrid.appendChild(createInfoItem('Traits', 'fas fa-star', traitsText));
     finalInfoGrid.appendChild(createInfoItem('Favorite Verse', 'fas fa-book-open', verse));
 
-    // Show final card, hide form
+    // Show final card, hide form and display share controls
     cardForm.style.display = 'none';
     finalCard.style.display = 'block';
+    shareControls.style.display = 'block';
 
     // Scroll to final card
     finalCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1119,80 +1118,171 @@
   const shareMessage = "Assalamu Alaikum! Check out my personalized Muslim Identity Card 🤗! Made with ❤️ on IslamicPedia.blog";
   const shareUrl = window.location.href;
 
-  downloadCardBtn.addEventListener('click', async () => {
-    // Temporarily move #finalCard to the screenshot container
-    // This isolates it for html2canvas and avoids screenshotting extra UI elements
-    cardForScreenshot.appendChild(finalCard.cloneNode(true)); // Clone to avoid changing live DOM
-    const cardElement = cardForScreenshot.querySelector('#finalCard');
-    cardElement.style.display = 'block'; // Ensure it's visible for capture
+  async function generateCardImage() {
+    // Create a temporary wrapper for the finalCard for accurate capture
+    // This wrapper mimics the visual style needed for html2canvas
+    const tempCardWrapper = document.createElement('div');
+    const rootStyles = getComputedStyle(document.documentElement);
+    tempCardWrapper.style.cssText = `
+        position: absolute;
+        left: -9999px;
+        top: -9999px;
+        width: 600px; /* Base width for internal elements rendering, html2canvas scales it */
+        background: linear-gradient(to bottom right, ${rootStyles.getPropertyValue('--card-bg-gradient-start')}, ${rootStyles.getPropertyValue('--card-bg-gradient-end')});
+        background-image: ${rootStyles.getPropertyValue('--islamic-pattern')}, linear-gradient(to bottom right, ${rootStyles.getPropertyValue('--card-bg-gradient-start')}, ${rootStyles.getPropertyValue('--card-bg-gradient-end')});
+        background-size: 20px 20px, 100% 100%;
+        background-blend-mode: overlay;
+        opacity: ${rootStyles.getPropertyValue('--islamic-pattern-opacity')};
+        background-repeat: repeat;
+        border-radius: 20px;
+        border: 2px solid ${rootStyles.getPropertyValue('--light-accent-color')};
+        box-shadow: none; /* Avoid capturing main card's shadow on clone */
+        padding: 40px; /* Match finalCard padding */
+    `;
+
+    const cardClone = finalCard.cloneNode(true);
+    // Adjust cloned card styles to ensure proper rendering for html2canvas
+    cardClone.style.animation = 'none'; // Disable animation on clone
+    cardClone.style.display = 'block'; // Ensure display is block for capture
+    cardClone.style.boxShadow = 'none'; // Remove box-shadow for capture
+    cardClone.style.opacity = '1'; // Ensure it's fully opaque for capture
+    cardClone.style.background = 'none'; // Remove background from clone, wrapper provides it
+
+    // Remove elements from the clone that shouldn't be in the image
+    const clonedFooter = cardClone.querySelector('#finalCardFooter');
+    if(clonedFooter) clonedFooter.remove(); // Footer will be redrawn on final canvas
+
+    tempCardWrapper.appendChild(cardClone);
+    document.body.appendChild(tempCardWrapper);
 
     const options = {
-        scale: 2, // Increase scale for higher resolution
-        useCORS: true,
-        backgroundColor: null, // Allow transparency if card has it
-        allowTaint: true // Allow images from other origins (like default user icon)
+        scale: 2, // Higher scale for better resolution (2x current size)
+        useCORS: true, // Allow cross-origin images (like external profile pic if not loaded from same domain)
+        backgroundColor: null, // Transparent background from html2canvas (will be drawn by canvas later)
+        allowTaint: true, // Allows capturing tainted canvases (like if profile pic is from a different origin)
     };
 
+    let capturedCanvas;
     try {
-        const canvas = await html2canvas(cardElement, options);
-        const image = canvas.toDataURL('image/png');
-
-        const a = document.createElement('a');
-        a.href = image;
-        a.download = `Muslim_ID_Card_${nameInput.value.trim().replace(/\s/g, '_') || 'New'}.png`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        // Capture the cloned card element
+        capturedCanvas = await html2canvas(cardClone, options);
     } catch (error) {
-        console.error('Error generating card image:', error);
+        console.error('Error capturing card:', error);
         alert('Could not generate card image. Please try again.');
+        return null;
     } finally {
-        cardForScreenshot.innerHTML = ''; // Clean up temporary element
-        finalCard.style.display = 'block'; // Ensure original card is visible
+        document.body.removeChild(tempCardWrapper); // Always clean up the temporary clone and wrapper
+    }
+
+    // --- Create a new canvas with 9:16 aspect ratio (1080x1920px) ---
+    const targetWidth = 1080;
+    const targetHeight = 1920; // 9:16 aspect ratio (1080/9 * 16)
+
+    const finalCanvas = document.createElement('canvas');
+    finalCanvas.width = targetWidth;
+    finalCanvas.height = targetHeight;
+    const finalCtx = finalCanvas.getContext('2d');
+
+    // Fill the background of the target canvas with the subtle pattern and base color
+    const bodyStyles = getComputedStyle(document.body);
+    finalCtx.fillStyle = bodyStyles.getPropertyValue('--bg-color');
+    finalCtx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+
+    // Draw the background pattern directly to the canvas
+    const patternImg = new Image();
+    patternImg.src = rootStyles.getPropertyValue('--islamic-pattern').replace(/url\(['"]?([^'"]+)['"]?\)/, '$1'); // Extract URL from CSS variable
+    await new Promise(resolve => {
+        patternImg.onload = resolve;
+        patternImg.onerror = () => { console.warn('Failed to load pattern image.'); resolve(); }; // Continue even if pattern fails to load
+    });
+
+    if (patternImg.complete && patternImg.naturalHeight !== 0) { // Check if image loaded successfully
+        const pattern = finalCtx.createPattern(patternImg, 'repeat');
+        finalCtx.save();
+        finalCtx.globalAlpha = parseFloat(rootStyles.getPropertyValue('--islamic-pattern-opacity')); // Apply opacity
+        finalCtx.fillStyle = pattern;
+        finalCtx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+        finalCtx.restore();
+    }
+
+
+    // Draw the captured card (from html2canvas) onto the new 9:16 canvas, centered
+    const capturedAspectRatio = capturedCanvas.width / capturedCanvas.height;
+    const targetAspectRatio = targetWidth / targetHeight;
+
+    let drawWidth = targetWidth;
+    let drawHeight = targetHeight;
+    let drawX = 0;
+    let drawY = 0;
+
+    // Calculate how to fit the captured image into the target aspect ratio
+    // This logic aims to contain the full card within the 9:16 frame, adding bars if needed
+    if (capturedAspectRatio > targetAspectRatio) {
+        // Captured image is wider than target (landscape-like relative to 9:16 portrait)
+        // Scale to fit target width, calculate height, center vertically
+        drawWidth = targetWidth;
+        drawHeight = targetWidth / capturedAspectRatio;
+        drawY = (targetHeight - drawHeight) / 2;
+    } else {
+        // Captured image is taller than target (portrait-like relative to 9:16 portrait)
+        // Scale to fit target height, calculate width, center horizontally
+        drawHeight = targetHeight;
+        drawWidth = targetHeight * capturedAspectRatio;
+        drawX = (targetWidth - drawWidth) / 2;
+    }
+
+    // Draw the captured content from html2canvas onto the final canvas
+    finalCtx.drawImage(capturedCanvas, drawX, drawY, drawWidth, drawHeight);
+
+    // Add the footer text directly to the canvas for precise positioning
+    const footerText = `© 2025 Islamicpedia.blog — All rights reserved.`;
+    finalCtx.font = '300 28px "Montserrat", sans-serif'; // Font size adjusted for 1920px height
+    finalCtx.fillStyle = '#6c757d'; // Use text-muted color
+    finalCtx.textAlign = 'center';
+    finalCtx.fillText(footerText, targetWidth / 2, targetHeight - 40); // Position near the bottom
+
+    return finalCanvas.toDataURL('image/png');
+  }
+
+  downloadCardBtn.addEventListener('click', async () => {
+    const imageDataUrl = await generateCardImage();
+    if (imageDataUrl) {
+      const a = document.createElement('a');
+      a.href = imageDataUrl;
+      a.download = `Muslim_ID_Card_${nameInput.value.trim().replace(/\s/g, '_') || 'New'}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     }
   });
 
   shareNativeBtn.addEventListener('click', async () => {
-    if (navigator.share) {
-        // Prepare card for screenshot
-        cardForScreenshot.appendChild(finalCard.cloneNode(true));
-        const cardElement = cardForScreenshot.querySelector('#finalCard');
-        cardElement.style.display = 'block';
+    const imageDataUrl = await generateCardImage();
+    if (imageDataUrl) {
+      // Convert data URL to Blob for native share
+      const response = await fetch(imageDataUrl);
+      const blob = await response.blob();
+      const file = new File([blob], `Muslim_ID_Card_${nameInput.value.trim().replace(/\s/g, '_') || 'New'}.png`, { type: 'image/png' });
 
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
-            const canvas = await html2canvas(cardElement, { scale: 2, useCORS: true, backgroundColor: null, allowTaint: true });
-            canvas.toBlob(async (blob) => {
-                if (blob) {
-                    const file = new File([blob], `Muslim_ID_Card_${nameInput.value.trim().replace(/\s/g, '_') || 'New'}.png`, { type: 'image/png' });
-                    try {
-                        await navigator.share({
-                            title: 'My Muslim Identity Card',
-                            text: shareMessage,
-                            url: shareUrl,
-                            files: [file] // Share the generated image file
-                        });
-                        console.log('Native share successful!');
-                    } catch (error) {
-                        console.error('Native share failed:', error);
-                        // Fallback to URL sharing if file sharing failed or cancelled
-                        triggerFallbackShare(shareMessage, shareUrl);
-                    }
-                } else {
-                    console.error('Failed to create blob from canvas.');
-                    triggerFallbackShare(shareMessage, shareUrl);
-                }
-            }, 'image/png');
+          await navigator.share({
+            title: 'My Muslim Identity Card',
+            text: shareMessage,
+            url: shareUrl,
+            files: [file]
+          });
+          console.log('Native share successful!');
         } catch (error) {
-            console.error('Error creating image for native share:', error);
-            triggerFallbackShare(shareMessage, shareUrl);
-        } finally {
-            cardForScreenshot.innerHTML = ''; // Clean up
-            finalCard.style.display = 'block'; // Ensure original card is visible
+          console.error('Native share failed:', error);
+          // Fallback if native sharing fails or is cancelled
+          triggerFallbackShare(shareMessage, shareUrl);
         }
-    } else {
-        // Fallback for browsers that don't support Web Share API
-        alert('Your browser does not support native sharing. Please use the social media buttons below or download the card.');
+      } else {
+        // Fallback for browsers that don't support file sharing via Web Share API
+        alert('Your device does not support sharing images directly. You can download the card and share it manually, or use the social media links below.');
         triggerFallbackShare(shareMessage, shareUrl);
+      }
     }
   });
 
@@ -1201,26 +1291,27 @@
     const encodedMessage = encodeURIComponent(message);
     const encodedUrl = encodeURIComponent(url);
 
+    // Show fallback buttons only if native sharing isn't fully supported
+    fallbackShareButtons.style.display = 'flex';
+
     document.getElementById('shareWhatsApp').href = `https://wa.me/?text=${encodedMessage}%0A${encodedUrl}`;
     document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}"e=${encodedMessage}`;
     document.getElementById('shareTelegram').href = `https://t.me/share/url?url=${encodedUrl}&text=${encodedMessage}`;
     document.getElementById('shareX').href = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedMessage}`;
-    document.getElementById('shareSnapchat').href = `https://www.snapchat.com/scan?attachmentUrl=${encodedUrl}`; // Snapchat is primarily URL-based for web
+    document.getElementById('shareSnapchat').href = `https://www.snapchat.com/scan?attachmentUrl=${encodedUrl}`;
   }
 
   // Initial setup
   initializeProgressDots();
-  showStep(0); // Show the first step
-  updateButtons(); // Set initial button states
+  showStep(0);
+  updateButtons();
 
-  // Check Web Share API support and adjust button visibility
+  // Hide native share button and show fallback if not supported on load
   if (!navigator.share || !navigator.canShare || !navigator.canShare({ files: [new File([], 'a.png', { type: 'image/png' })] })) {
-    shareNativeBtn.style.display = 'none'; // Hide if not supported or cannot share files
-    fallbackShareButtons.style.display = 'flex'; // Show fallback
-  } else {
-    fallbackShareButtons.style.display = 'none'; // Hide fallback if native is available
+    shareNativeBtn.style.display = 'none';
+    // No need to show fallback buttons on load, only when user clicks share and native fails
+    // fallbackShareButtons.style.display = 'flex'; // Removed this line
   }
-
 })();
 </script>
 
