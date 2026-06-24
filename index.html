@@ -79,27 +79,7 @@
         .site-brand .brand-name {
             color: #f1f5f9;
         }
-
-        .countdown-timer {
-            display: none;
-            align-items: center;
-            gap: 5px;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 8px;
-            padding: 5px 10px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #f87171;
-            white-space: nowrap;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .countdown-timer.show {
-            display: flex;
-        }
-
+        
         .search-section {
             position: fixed;
             top: 50px; left: 0; right: 0;
@@ -880,8 +860,6 @@
             <div class="brand-icon">R</div>
             <div class="brand-name">rarestudy.site</div>
         </div>
-        <div class="countdown-timer" id="countdownTimer">
-            ⏱ <span id="countdownTime">--:--:--</span>
         </div>
     </div>
 
@@ -1044,46 +1022,6 @@
             getValue(name) {
                 const match = document.cookie.match(new RegExp(name + '=([^;]+)'));
                 return match ? match[1] : null;
-            }
-        };
-
-        const countdownManager = {
-            timer:      null,
-            expiryTime: null,
-
-            init() {
-                const v = cookieManager.getValue('session_expiry');
-                if (!v) return;
-                this.expiryTime = parseInt(v);
-                this.start();
-            },
-
-            formatTime(ms) {
-                if (ms <= 0) return '00:00:00';
-                const h = Math.floor(ms / 3600000);
-                const m = Math.floor((ms % 3600000) / 60000);
-                const s = Math.floor((ms % 60000) / 1000);
-                return [h, m, s].map(n => String(n).padStart(2, '0')).join(':');
-            },
-
-            updateDisplay() {
-                const timerEl = document.getElementById('countdownTimer');
-                const timeEl  = document.getElementById('countdownTime');
-                if (!this.expiryTime) { timerEl.classList.remove('show'); return; }
-                const remaining = this.expiryTime - Date.now();
-                if (remaining <= 0) { timeEl.textContent = '00:00:00'; this.stop(); return; }
-                timeEl.textContent = this.formatTime(remaining);
-                timerEl.classList.add('show');
-            },
-
-            start() {
-                if (!this.expiryTime) return;
-                this.updateDisplay();
-                this.timer = setInterval(() => this.updateDisplay(), 1000);
-            },
-
-            stop() {
-                if (this.timer) { clearInterval(this.timer); this.timer = null; }
             }
         };
 
@@ -1707,10 +1645,6 @@
         el.popupWhatsapp.onclick = () => { window.open('https://whatsapp.com/channel/0029VbDNg3KH5JLtZDlhr63C', '_blank'); };
         el.popupTelegram.onclick = () => { window.open('https://channel.rarestudy.workers.dev', '_blank'); };
 
-        document.getElementById('countdownTimer').onclick = () => {
-            document.getElementById('resetKeyPopup').style.display = 'flex';
-        };
-
         function resetKey() {
             window.location.href = '/reset-key';
         }
@@ -1719,23 +1653,10 @@
             state.favourites = cookieManager.get('favourite_batches') || [];
             renderInitialBatches();
             el.telegramPopup.style.display = 'flex';
-            countdownManager.init();
         }
 
         document.addEventListener('DOMContentLoaded', initialize);
 
-        (function () {
-            ['contextmenu', 'selectstart', 'dragstart', 'copy'].forEach(evt =>
-                document.addEventListener(evt, e => e.preventDefault())
-            );
-            document.addEventListener('keydown', (e) => {
-                const blocked =
-                    e.key === 'F12' ||
-                    (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
-                    (e.ctrlKey && ['U', 'S'].includes(e.key));
-                if (blocked) { e.preventDefault(); return false; }
-            });
-        })();
     </script>
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"a870477babf4472d87cfe5347ff3f376","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
