@@ -298,7 +298,7 @@ if(it.type==='LECTURE'&&isVideoClass(d)){
 any=true;
 const a=document.createElement('a');
 a.className='sc';
-a.href=`/schedule-details?batchId=${ep(BATCH_ID)}&subjectId=${ep(sid)}&scheduleId=${ep(schId)}&tap=video`;
+a.href=`./schedule-details?batchId=${ep(BATCH_ID)}&subjectId=${ep(sid)}&scheduleId=${ep(schId)}&tap=video`;
 if(tagL==='upcoming'){
 a.onclick=ev=>{ev.preventDefault();showMsg(`Class not started yet. Begins at ${st}.`);};
 }
@@ -333,7 +333,7 @@ any=true;
 const dpp=d.dppData||{};
 const a=document.createElement('a');
 a.className='sc';
-a.href=`/schedule-details?batchId=${ep(BATCH_ID)}&subjectId=${ep(sid)}&scheduleId=${ep(schId)}&tap=note&dppId=${ep(dpp.dppId||'')}&isDpp=true&isSubjective=${dpp.isSubjective?'true':'false'}`;
+a.href=`./schedule-details?batchId=${ep(BATCH_ID)}&subjectId=${ep(sid)}&scheduleId=${ep(schId)}&tap=note&dppId=${ep(dpp.dppId||'')}&isDpp=true&isSubjective=${dpp.isSubjective?'true':'false'}`;
 a.target='_self';
 const body=document.createElement('div');
 body.className='sc-body';
@@ -388,12 +388,12 @@ const data=await pw(`https://api.penpencil.co/v2/programs/${khazanaId}/filters?p
 const khName=data.data?.name||'Khazana';
 list.innerHTML='';
 const li=document.createElement('li');li.className='subj-item';
-li.innerHTML=`<a class="subj-link" href="/freetools4u-site/khazana?khazanaProgramId=${ep(khazanaId)}&batchName=${ep(BATCH_NAME)}&batchId=${ep(BATCH_ID)}"><img class="subj-img" src="https://cdn-icons-png.flaticon.com/512/5780/5780875.png" alt="${esc(khName)}"><div class="subj-cnt"><div class="subj-info"><div class="subj-name">${esc(khName)}</div></div><span class="subj-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span></div></a>`;
+li.innerHTML=`<a class="subj-link" href="./khazana?khazanaProgramId=${ep(khazanaId)}&batchName=${ep(BATCH_NAME)}&batchId=${ep(BATCH_ID)}"><img class="subj-img" src="https://cdn-icons-png.flaticon.com/512/5780/5780875.png" alt="${esc(khName)}"><div class="subj-cnt"><div class="subj-info"><div class="subj-name">${esc(khName)}</div></div><span class="subj-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span></div></a>`;
 list.appendChild(li);
 }catch{
 list.innerHTML='';
 const li=document.createElement('li');li.className='subj-item';
-li.innerHTML=`<a class="subj-link" href="freetools4u-site/khazana?khazanaProgramId=${ep(khazanaId)}&batchName=${ep(BATCH_NAME)}&batchId=${ep(BATCH_ID)}"><img class="subj-img" src="https://cdn-icons-png.flaticon.com/512/5780/5780875.png" alt="Khazana"><div class="subj-cnt"><div class="subj-info"><div class="subj-name">Khazana</div></div><span class="subj-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span></div></a>`;
+li.innerHTML=`<a class="subj-link" href="./khazana?khazanaProgramId=${ep(khazanaId)}&batchName=${ep(BATCH_NAME)}&batchId=${ep(BATCH_ID)}"><img class="subj-img" src="https://cdn-icons-png.flaticon.com/512/5780/5780875.png" alt="Khazana"><div class="subj-cnt"><div class="subj-info"><div class="subj-name">Khazana</div></div><span class="subj-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span></div></a>`;
 list.appendChild(li);
 }
 }
@@ -504,7 +504,7 @@ card.querySelector('.test-card-body').addEventListener('click',()=>{
 const si=card.dataset.siso,isRa=card.dataset.ra==='true',held=card.dataset.held;
 if(si){const ms=new Date(si).getTime();if(!isNaN(ms)&&ms>Date.now()){showInfo('⏳','Test Not Started Yet',`Scheduled:\n\n📅 ${held}\n\nCome back at scheduled time 💪`);return;}}
 if(isRa){showInfo('📊','Result Not Published','Result not published yet. Once out, you can start. 🔔');return;}
-location.href=`/get-batch-test?testId=${ep(card.dataset.tid)}&testName=${ep(card.dataset.tname)}&batchId=${ep(BATCH_ID)}`;
+location.href=`./get-batch-test?testId=${ep(card.dataset.tid)}&testName=${ep(card.dataset.tname)}&batchId=${ep(BATCH_ID)}`;
 });
 list.appendChild(card);
 });
