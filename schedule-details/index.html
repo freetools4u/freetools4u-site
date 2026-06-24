@@ -3415,7 +3415,7 @@
                         if (!MEDIA_TOKEN)
                             throw new Error('Media token not available.');
                         const container = isNativeOnly ? 'HLS' : 'DASH';
-                        const res = await fetch('freetools4u-site/v1/videos/video-url-details?' + new URLSearchParams({
+                        const res = await fetch('https://rarestudy.in/v1/videos/video-url-details?' + new URLSearchParams({
                             mediaToken: MEDIA_TOKEN,
                             videoContainerType: container
                         }));
