@@ -388,12 +388,12 @@ const data=await pw(`https://api.penpencil.co/v2/programs/${khazanaId}/filters?p
 const khName=data.data?.name||'Khazana';
 list.innerHTML='';
 const li=document.createElement('li');li.className='subj-item';
-li.innerHTML=`<a class="subj-link" href="/khazana?khazanaProgramId=${ep(khazanaId)}&batchName=${ep(BATCH_NAME)}&batchId=${ep(BATCH_ID)}"><img class="subj-img" src="https://cdn-icons-png.flaticon.com/512/5780/5780875.png" alt="${esc(khName)}"><div class="subj-cnt"><div class="subj-info"><div class="subj-name">${esc(khName)}</div></div><span class="subj-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span></div></a>`;
+li.innerHTML=`<a class="subj-link" href="/freetools-4u/khazana?khazanaProgramId=${ep(khazanaId)}&batchName=${ep(BATCH_NAME)}&batchId=${ep(BATCH_ID)}"><img class="subj-img" src="https://cdn-icons-png.flaticon.com/512/5780/5780875.png" alt="${esc(khName)}"><div class="subj-cnt"><div class="subj-info"><div class="subj-name">${esc(khName)}</div></div><span class="subj-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span></div></a>`;
 list.appendChild(li);
 }catch{
 list.innerHTML='';
 const li=document.createElement('li');li.className='subj-item';
-li.innerHTML=`<a class="subj-link" href="/khazana?khazanaProgramId=${ep(khazanaId)}&batchName=${ep(BATCH_NAME)}&batchId=${ep(BATCH_ID)}"><img class="subj-img" src="https://cdn-icons-png.flaticon.com/512/5780/5780875.png" alt="Khazana"><div class="subj-cnt"><div class="subj-info"><div class="subj-name">Khazana</div></div><span class="subj-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span></div></a>`;
+li.innerHTML=`<a class="subj-link" href="/freetools4u-site/khazana?khazanaProgramId=${ep(khazanaId)}&batchName=${ep(BATCH_NAME)}&batchId=${ep(BATCH_ID)}"><img class="subj-img" src="https://cdn-icons-png.flaticon.com/512/5780/5780875.png" alt="Khazana"><div class="subj-cnt"><div class="subj-info"><div class="subj-name">Khazana</div></div><span class="subj-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span></div></a>`;
 list.appendChild(li);
 }
 }
