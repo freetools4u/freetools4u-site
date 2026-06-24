@@ -1390,7 +1390,7 @@
                 const batchId   = batchEl.dataset.id;
                 const batchName = batchEl.dataset.name;
                 if (batchId) {
-                    window.location.href = '/subjects?' + new URLSearchParams({ batchId, batchName }).toString();
+                    window.location.href = '/freetools4u-site/subjects?' + new URLSearchParams({ batchId, batchName }).toString();
                 }
             }
         };
@@ -1412,7 +1412,7 @@
                 if (batchData) openMahapackOverlay(batchData);
             } else {
                 if (batchId) {
-                    window.location.href = '/subjects?' + new URLSearchParams({ batchId, batchName }).toString();
+                    window.location.href = '/freetools4u-site/subjects?' + new URLSearchParams({ batchId, batchName }).toString();
                 }
             }
         }
